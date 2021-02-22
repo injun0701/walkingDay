@@ -18,10 +18,4 @@ class LocationListViewController: UIViewController {
 
     }
   
-    @IBAction func ㅇㅇㅇ(_ sender: Any) {
-        let sb = UIStoryboard(name: "Location", bundle: nil)
-        guard let navi = sb.instantiateViewController(withIdentifier: "LocationSearchViewController") as? LocationSearchViewController else { return }
-      
-        self.navigationController?.pushViewController(navi, animated: true)
-    }
 }

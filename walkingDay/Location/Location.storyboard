@@ -41,14 +41,6 @@
                                 <color key="textColor" name="textColor888888"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6e4-cx-4AE">
-                                <rect key="frame" x="250" y="233" width="46" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <connections>
-                                    <action selector="ㅇㅇㅇ:" destination="aTa-Lj-jff" eventType="touchUpInside" id="kLf-K8-jRD"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="mv9-P0-i7b"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
