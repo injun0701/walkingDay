@@ -44,7 +44,6 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="cellBackgroundView" destination="jJU-Iz-yGb" id="Ib6-rD-4Wc"/>
                 <outlet property="plusImg" destination="o4w-yK-J8h" id="pbG-4p-AFY"/>
             </connections>
             <point key="canvasLocation" x="-180" y="98"/>

@@ -22,3 +22,15 @@ class MemoList : Object {
           return "id"
     }
 }
+
+//테이블 정의
+class LocationList : Object {
+    @objc dynamic var id = 0 //primaryKey
+    @objc dynamic var provinces = ""
+    @objc dynamic var city = ""
+    @objc dynamic var isChecked = false
+    
+    override static func primaryKey() -> String? {
+          return "id"
+    }
+}

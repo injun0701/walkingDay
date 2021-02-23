@@ -41,6 +41,10 @@
                                 <color key="textColor" name="textColor888888"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Sq9-kk-NBV">
+                                <rect key="frame" x="0.0" y="166" width="414" height="730"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="mv9-P0-i7b"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -48,16 +52,23 @@
                             <constraint firstItem="2ue-jw-NbM" firstAttribute="leading" secondItem="mv9-P0-i7b" secondAttribute="leading" constant="20" id="56S-8p-Yje"/>
                             <constraint firstItem="9Hf-Lf-fFC" firstAttribute="top" secondItem="xHo-94-4bT" secondAttribute="bottom" constant="5" id="Bun-yu-7NC"/>
                             <constraint firstItem="2ue-jw-NbM" firstAttribute="top" secondItem="mv9-P0-i7b" secondAttribute="top" constant="15" id="SPR-o2-vhm"/>
+                            <constraint firstItem="Sq9-kk-NBV" firstAttribute="top" secondItem="9Hf-Lf-fFC" secondAttribute="bottom" constant="20" id="YiP-Ym-nWl"/>
                             <constraint firstItem="xHo-94-4bT" firstAttribute="leading" secondItem="mv9-P0-i7b" secondAttribute="leading" constant="20" id="gMO-UM-4uw"/>
                             <constraint firstItem="mv9-P0-i7b" firstAttribute="trailing" secondItem="9Hf-Lf-fFC" secondAttribute="trailing" constant="20" id="m8F-L2-Md1"/>
+                            <constraint firstAttribute="bottom" secondItem="Sq9-kk-NBV" secondAttribute="bottom" id="nDl-s2-lc8"/>
+                            <constraint firstItem="Sq9-kk-NBV" firstAttribute="trailing" secondItem="mv9-P0-i7b" secondAttribute="trailing" id="nkX-kO-2Qk"/>
                             <constraint firstItem="9Hf-Lf-fFC" firstAttribute="leading" secondItem="mv9-P0-i7b" secondAttribute="leading" constant="20" id="tlm-UV-1Xi"/>
+                            <constraint firstItem="Sq9-kk-NBV" firstAttribute="leading" secondItem="mv9-P0-i7b" secondAttribute="leading" id="uTA-mJ-u7I"/>
                             <constraint firstItem="xHo-94-4bT" firstAttribute="top" secondItem="2ue-jw-NbM" secondAttribute="bottom" constant="11" id="utX-hR-ubO"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="locationListTableView" destination="Sq9-kk-NBV" id="NzM-qD-EgQ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LKk-Dc-cJE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-391" y="40"/>
+            <point key="canvasLocation" x="-391.304347826087" y="39.508928571428569"/>
         </scene>
         <!--Location Search View Controller-->
         <scene sceneID="nft-zD-RSp">
@@ -103,6 +114,9 @@
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                                 <textInputTraits key="textInputTraits"/>
+                                                <connections>
+                                                    <action selector="searchTfAction:" destination="yaM-Zd-4tS" eventType="editingChanged" id="M45-w8-PiW"/>
+                                                </connections>
                                             </textField>
                                         </subviews>
                                         <constraints>
@@ -121,6 +135,33 @@
                                     <constraint firstAttribute="bottom" secondItem="mTd-9g-fSc" secondAttribute="bottom" constant="5" id="zt9-eQ-eBE"/>
                                 </constraints>
                             </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="DuM-En-n4y">
+                                <rect key="frame" x="0.0" y="231" width="414" height="665"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9O3-6p-FYr">
+                                <rect key="frame" x="20" y="194" width="90.5" height="17"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="검색결과 총 " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ov5-s8-mgF">
+                                        <rect key="frame" x="0.0" y="0.0" width="68.5" height="17"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <color key="textColor" name="textColor888888"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I2e-5a-Obs">
+                                        <rect key="frame" x="68.5" y="0.0" width="9.5" height="17"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                        <color key="textColor" name="mainColorOrange"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="건" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ci3-UL-1qo">
+                                        <rect key="frame" x="78" y="0.0" width="12.5" height="17"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <color key="textColor" name="textColor888888"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="QQU-Rf-fSH">
                                 <rect key="frame" x="20" y="792" width="374" height="50"/>
                                 <subviews>
@@ -140,6 +181,9 @@
                                                 <integer key="value" value="6"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="saveBtnAction:" destination="yaM-Zd-4tS" eventType="touchUpInside" id="C5T-DM-fhv"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -149,18 +193,30 @@
                         <viewLayoutGuide key="safeArea" id="12q-bQ-6LI"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="DuM-En-n4y" firstAttribute="top" secondItem="9O3-6p-FYr" secondAttribute="bottom" constant="20" id="9eB-TY-MrI"/>
+                            <constraint firstItem="9O3-6p-FYr" firstAttribute="leading" secondItem="12q-bQ-6LI" secondAttribute="leading" constant="20" id="ADi-4x-2RM"/>
                             <constraint firstItem="oGS-zM-KuO" firstAttribute="leading" secondItem="12q-bQ-6LI" secondAttribute="leading" constant="20" id="GzK-x9-hTq"/>
+                            <constraint firstItem="9O3-6p-FYr" firstAttribute="top" secondItem="vAd-va-dbT" secondAttribute="bottom" constant="5" id="JL6-hN-bUU"/>
                             <constraint firstItem="12q-bQ-6LI" firstAttribute="bottom" secondItem="QQU-Rf-fSH" secondAttribute="bottom" constant="20" id="JSY-CC-tGd"/>
                             <constraint firstItem="12q-bQ-6LI" firstAttribute="trailing" secondItem="QQU-Rf-fSH" secondAttribute="trailing" constant="20" id="Nsh-aq-TrC"/>
+                            <constraint firstAttribute="bottom" secondItem="DuM-En-n4y" secondAttribute="bottom" id="VxW-sI-TlN"/>
                             <constraint firstItem="vAd-va-dbT" firstAttribute="top" secondItem="Ve7-f0-F7f" secondAttribute="bottom" constant="10" id="WjM-JE-evt"/>
                             <constraint firstItem="12q-bQ-6LI" firstAttribute="trailing" secondItem="vAd-va-dbT" secondAttribute="trailing" constant="20" id="aqy-HV-9Od"/>
+                            <constraint firstItem="DuM-En-n4y" firstAttribute="trailing" secondItem="12q-bQ-6LI" secondAttribute="trailing" id="asR-g6-a3v"/>
                             <constraint firstItem="Ve7-f0-F7f" firstAttribute="leading" secondItem="12q-bQ-6LI" secondAttribute="leading" constant="20" id="cnC-8U-FFT"/>
                             <constraint firstItem="QQU-Rf-fSH" firstAttribute="leading" secondItem="12q-bQ-6LI" secondAttribute="leading" constant="20" id="lGC-b8-QN1"/>
                             <constraint firstItem="oGS-zM-KuO" firstAttribute="top" secondItem="12q-bQ-6LI" secondAttribute="top" constant="15" id="m1I-e1-1qQ"/>
+                            <constraint firstItem="DuM-En-n4y" firstAttribute="leading" secondItem="12q-bQ-6LI" secondAttribute="leading" id="sYG-IE-IgH"/>
                             <constraint firstItem="Ve7-f0-F7f" firstAttribute="top" secondItem="oGS-zM-KuO" secondAttribute="bottom" constant="11" id="veg-yN-ioQ"/>
                             <constraint firstItem="vAd-va-dbT" firstAttribute="leading" secondItem="12q-bQ-6LI" secondAttribute="leading" constant="20" id="wno-Iv-jtI"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="cellCountLbl" destination="I2e-5a-Obs" id="0Ae-F9-yys"/>
+                        <outlet property="locationSearchTableView" destination="DuM-En-n4y" id="N1I-jZ-4OC"/>
+                        <outlet property="saveBtn" destination="urZ-25-JOE" id="rkF-Ep-YVP"/>
+                        <outlet property="searchTf" destination="jg2-LF-xzi" id="ApX-Sr-VNQ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b7t-wu-fL3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -170,6 +226,9 @@
     <resources>
         <image name="back_black" width="30" height="30"/>
         <image name="search" width="30" height="30"/>
+        <namedColor name="mainColorOrange">
+            <color red="1" green="0.63099998235702515" blue="0.15299999713897705" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="textColor555555">
             <color red="0.33300000429153442" green="0.33300000429153442" blue="0.33300000429153442" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

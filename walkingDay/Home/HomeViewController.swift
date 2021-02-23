@@ -126,7 +126,7 @@ class HomeViewController: UIViewController {
     @objc func locationViewTapped(sender: UITapGestureRecognizer) {
         let sb = UIStoryboard(name: "Location", bundle: nil)
         guard let navi = sb.instantiateViewController(withIdentifier: "LocationListViewController") as? LocationListViewController else { return }
-      
+        navi.currentLocationValue = locationLbl.text!
         self.navigationController?.pushViewController(navi, animated: true)
     }
 

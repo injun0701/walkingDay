@@ -100,13 +100,12 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="categoryImg" destination="1ZT-a4-IQF" id="pTd-2I-iUb"/>
-                <outlet property="cellBackgroundView" destination="3U2-pO-FLQ" id="fNf-nf-Dak"/>
                 <outlet property="deleteBtn" destination="fNR-yu-8kW" id="6o4-Dp-Rsn"/>
                 <outlet property="memoLbl" destination="Jbf-2P-pfo" id="48r-Ra-Xzm"/>
                 <outlet property="timeLbl" destination="Ix6-Zg-FRo" id="2cV-zy-wh6"/>
                 <outlet property="titleLbl" destination="Qdn-Ow-8iT" id="Ppy-ZD-mqk"/>
             </connections>
-            <point key="canvasLocation" x="-203" y="-29"/>
+            <point key="canvasLocation" x="-204.34782608695653" y="-29.129464285714285"/>
         </tableViewCell>
     </objects>
     <resources>

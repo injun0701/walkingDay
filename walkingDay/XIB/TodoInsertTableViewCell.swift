@@ -7,5 +7,5 @@
 
 class TodoInsertTableViewCell: UITableViewCell {
     @IBOutlet var plusImg: UIImageView!
-    @IBOutlet var cellBackgroundView: SubViewBackgroundDesign!
+ 
 }

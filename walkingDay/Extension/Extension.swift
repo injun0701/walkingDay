@@ -194,6 +194,20 @@ extension UIViewController {
         }
     }
     
+    //버튼 한개 알럿
+    func showAlertBtn1(title: String, message: String, btnTitle: String) {
+        //1. Alert
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        //2. AlertAction 생성
+        let btn1 = UIAlertAction(title: btnTitle, style: .default)
+        //3. Alert + AlerAction
+        alert.addAction(btn1)
+        
+        //4.Alert Present
+        present(alert, animated: true) {
+            print("Alert이 잘 작동됨")
+        }
+    }
 }
 
 //MARK: 유아이_컬러 extension
@@ -238,6 +252,9 @@ extension UIFont {
     }
     var regular14 : UIFont {
         return UIFont.systemFont(ofSize: 14, weight: .regular)
+    }
+    var regular16 : UIFont {
+        return UIFont.systemFont(ofSize: 16, weight: .regular)
     }
 }
 
@@ -303,4 +320,19 @@ extension Date {
     var noon: Date {
         return Calendar.current.date(bySettingHour: 12, minute: 0, second: 0, of: self)!
     }
+}
+
+//MARK: 네비게이션컨트롤러 extension
+extension UINavigationController {
+    
+    //이전 스텍 체크하는 함수
+    func previousViewController() -> UIViewController?{
+        
+        let lenght = self.viewControllers.count
+        
+        let previousViewController: UIViewController? = lenght >= 2 ? self.viewControllers[lenght-2] : nil
+        
+        return previousViewController
+    }
+    
 }

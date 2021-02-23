@@ -114,6 +114,7 @@ extension MenuViewController: UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "SingleTableViewCell", for: indexPath) as? SingleTableViewCell else {
             return UITableViewCell()
         }
+        cell.contentLbl.isHidden = true
         cell.titleLbl.text = menu[indexPath.row].title
         cell.imageView?.image = UIImage(named: menu[indexPath.row].img)
         cell.selectionStyle = .none
@@ -146,7 +147,7 @@ extension MenuViewController: UITableViewDelegate, UITableViewDataSource {
         
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 60;
+        return 60
     }
 }
 
@@ -158,17 +159,4 @@ struct Menu {
         self.title = title
         self.img = img
     }
-}
-extension UINavigationController {
-    
-    ///Get previous view controller of the navigation stack
-    func previousViewController() -> UIViewController?{
-        
-        let lenght = self.viewControllers.count
-        
-        let previousViewController: UIViewController? = lenght >= 2 ? self.viewControllers[lenght-2] : nil
-        
-        return previousViewController
-    }
-    
 }

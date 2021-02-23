@@ -36,6 +36,8 @@ class StartViewController: UIViewController {
         
         view.sendSubviewToBack(bgView)
         lodingGifSet(gifName: "loadong01.gif")
+        //LocationList 현재 위치 레코드 추가
+        currentLocationListCheck()
         //위치정보 권한 체크
         locationCheck()
     }
@@ -44,6 +46,12 @@ class StartViewController: UIViewController {
     func lodingGifSet(gifName: String) {
         let gif = try! UIImage(gifName: gifName)
         self.loadingImg.setGifImage(gif, loopCount: -1) // Will loop forever
+    }
+    
+    func currentLocationListCheck() {
+        if LocationDbManager.shared.locationList()?.count == 0 {
+            LocationDbManager.shared.locationListInsert(provinces: "현재 위치", city: "", isChecked: true)
+        }
     }
     
     //MARK: viewDidAppear

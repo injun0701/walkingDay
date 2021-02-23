@@ -11,7 +11,9 @@
 		8411459025E3FF1F0053165F /* LocationListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8411458F25E3FF1F0053165F /* LocationListViewController.swift */; };
 		8411459425E3FF4B0053165F /* LocationSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8411459325E3FF4B0053165F /* LocationSearchViewController.swift */; };
 		8415F84225DFFB80004EF3BF /* LoadingHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8415F84125DFFB80004EF3BF /* LoadingHUD.swift */; };
-		8435E8BB25E09F360012F1FB /* MemoConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8435E8BA25E09F360012F1FB /* MemoConfig.swift */; };
+		842F7AA725E49313005736D6 /* LocationListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842F7AA525E49313005736D6 /* LocationListTableViewCell.swift */; };
+		842F7AA825E49313005736D6 /* LocationListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 842F7AA625E49313005736D6 /* LocationListTableViewCell.xib */; };
+		8435E8BB25E09F360012F1FB /* MemoDbConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8435E8BA25E09F360012F1FB /* MemoDbConfig.swift */; };
 		8435E8BE25E0AAE10012F1FB /* Menu.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8435E8BD25E0AAE10012F1FB /* Menu.storyboard */; };
 		8435E8C125E0AB530012F1FB /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8435E8C025E0AB530012F1FB /* MenuViewController.swift */; };
 		8435E8C525E0AD2D0012F1FB /* SingleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8435E8C325E0AD2D0012F1FB /* SingleTableViewCell.swift */; };
@@ -39,6 +41,7 @@
 		8485F9CC25DDA7D70021F35A /* weather1@3x.gif in Resources */ = {isa = PBXBuildFile; fileRef = 8485F9C325DDA7D70021F35A /* weather1@3x.gif */; };
 		8485F9D125DDAA6F0021F35A /* rain@3x.gif in Resources */ = {isa = PBXBuildFile; fileRef = 8485F9CF25DDAA6E0021F35A /* rain@3x.gif */; };
 		8485F9D225DDAA6F0021F35A /* rainMask@3x.gif in Resources */ = {isa = PBXBuildFile; fileRef = 8485F9D025DDAA6F0021F35A /* rainMask@3x.gif */; };
+		849E354825E5394E00189965 /* LocationDbConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849E354725E5394E00189965 /* LocationDbConfig.swift */; };
 		84A6E3EC25DA5ECA00806DFF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A6E3EB25DA5ECA00806DFF /* AppDelegate.swift */; };
 		84A6E3EE25DA5ECA00806DFF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A6E3ED25DA5ECA00806DFF /* SceneDelegate.swift */; };
 		84A6E3F025DA5ECA00806DFF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A6E3EF25DA5ECA00806DFF /* ViewController.swift */; };
@@ -73,7 +76,9 @@
 		8411458F25E3FF1F0053165F /* LocationListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationListViewController.swift; sourceTree = "<group>"; };
 		8411459325E3FF4B0053165F /* LocationSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchViewController.swift; sourceTree = "<group>"; };
 		8415F84125DFFB80004EF3BF /* LoadingHUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingHUD.swift; sourceTree = "<group>"; };
-		8435E8BA25E09F360012F1FB /* MemoConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoConfig.swift; sourceTree = "<group>"; };
+		842F7AA525E49313005736D6 /* LocationListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationListTableViewCell.swift; sourceTree = "<group>"; };
+		842F7AA625E49313005736D6 /* LocationListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LocationListTableViewCell.xib; sourceTree = "<group>"; };
+		8435E8BA25E09F360012F1FB /* MemoDbConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoDbConfig.swift; sourceTree = "<group>"; };
 		8435E8BD25E0AAE10012F1FB /* Menu.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Menu.storyboard; sourceTree = "<group>"; };
 		8435E8C025E0AB530012F1FB /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		8435E8C325E0AD2D0012F1FB /* SingleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleTableViewCell.swift; sourceTree = "<group>"; };
@@ -101,6 +106,7 @@
 		8485F9C325DDA7D70021F35A /* weather1@3x.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "weather1@3x.gif"; sourceTree = "<group>"; };
 		8485F9CF25DDAA6E0021F35A /* rain@3x.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "rain@3x.gif"; sourceTree = "<group>"; };
 		8485F9D025DDAA6F0021F35A /* rainMask@3x.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "rainMask@3x.gif"; sourceTree = "<group>"; };
+		849E354725E5394E00189965 /* LocationDbConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDbConfig.swift; sourceTree = "<group>"; };
 		84A6E3E825DA5ECA00806DFF /* walkingDay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = walkingDay.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84A6E3EB25DA5ECA00806DFF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		84A6E3ED25DA5ECA00806DFF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -177,7 +183,8 @@
 			isa = PBXGroup;
 			children = (
 				8476413B25DFD2AD004DFCA1 /* DeviceConfig.swift */,
-				8435E8BA25E09F360012F1FB /* MemoConfig.swift */,
+				8435E8BA25E09F360012F1FB /* MemoDbConfig.swift */,
+				849E354725E5394E00189965 /* LocationDbConfig.swift */,
 				8467E32825E2A09D00EC6B4E /* LocationConfig.swift */,
 			);
 			path = config;
@@ -302,6 +309,8 @@
 				8465C3FC25DE54EB0078DEBB /* WalkCollectionViewCell.xib */,
 				8435E8C325E0AD2D0012F1FB /* SingleTableViewCell.swift */,
 				8435E8C425E0AD2D0012F1FB /* SingleTableViewCell.xib */,
+				842F7AA525E49313005736D6 /* LocationListTableViewCell.swift */,
+				842F7AA625E49313005736D6 /* LocationListTableViewCell.xib */,
 			);
 			path = XIB;
 			sourceTree = "<group>";
@@ -410,6 +419,7 @@
 				8476413725DFBC22004DFCA1 /* loadong01.gif in Resources */,
 				8485F9B525DDA7CE0021F35A /* sunMack@3x.gif in Resources */,
 				84A6E3F325DA5ECA00806DFF /* Main.storyboard in Resources */,
+				842F7AA825E49313005736D6 /* LocationListTableViewCell.xib in Resources */,
 				8485F9C725DDA7D70021F35A /* weather4@3x.gif in Resources */,
 				84A6E41625DA632300806DFF /* Home.storyboard in Resources */,
 				8485F9CA25DDA7D70021F35A /* dust3@3x.gif in Resources */,
@@ -424,6 +434,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				84A6E41C25DA64D800806DFF /* PopupDatePickerViewController.swift in Sources */,
+				849E354825E5394E00189965 /* LocationDbConfig.swift in Sources */,
 				8415F84225DFFB80004EF3BF /* LoadingHUD.swift in Sources */,
 				84A6E44F25DA944E00806DFF /* RealmModel.swift in Sources */,
 				84A6E3F025DA5ECA00806DFF /* ViewController.swift in Sources */,
@@ -447,7 +458,8 @@
 				84A6E3EE25DA5ECA00806DFF /* SceneDelegate.swift in Sources */,
 				84A6E41925DA633700806DFF /* HomeViewController.swift in Sources */,
 				8411459025E3FF1F0053165F /* LocationListViewController.swift in Sources */,
-				8435E8BB25E09F360012F1FB /* MemoConfig.swift in Sources */,
+				842F7AA725E49313005736D6 /* LocationListTableViewCell.swift in Sources */,
+				8435E8BB25E09F360012F1FB /* MemoDbConfig.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
