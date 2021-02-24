@@ -11,6 +11,8 @@
 		8411459025E3FF1F0053165F /* LocationListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8411458F25E3FF1F0053165F /* LocationListViewController.swift */; };
 		8411459425E3FF4B0053165F /* LocationSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8411459325E3FF4B0053165F /* LocationSearchViewController.swift */; };
 		8415F84225DFFB80004EF3BF /* LoadingHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8415F84125DFFB80004EF3BF /* LoadingHUD.swift */; };
+		8419295125E6AE4700D3F5B5 /* AirDetailCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8419294F25E6AE4700D3F5B5 /* AirDetailCollectionViewCell.swift */; };
+		8419295225E6AE4700D3F5B5 /* AirDetailCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8419295025E6AE4700D3F5B5 /* AirDetailCollectionViewCell.xib */; };
 		842F7AA725E49313005736D6 /* LocationListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842F7AA525E49313005736D6 /* LocationListTableViewCell.swift */; };
 		842F7AA825E49313005736D6 /* LocationListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 842F7AA625E49313005736D6 /* LocationListTableViewCell.xib */; };
 		8435E8BB25E09F360012F1FB /* MemoDbConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8435E8BA25E09F360012F1FB /* MemoDbConfig.swift */; };
@@ -69,6 +71,11 @@
 		84A6E44C25DA93DF00806DFF /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 84A6E44B25DA93DF00806DFF /* RealmSwift */; };
 		84A6E44F25DA944E00806DFF /* RealmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A6E44E25DA944E00806DFF /* RealmModel.swift */; };
 		84B1BCEE25DEC13800DACF89 /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B1BCED25DEC13800DACF89 /* StartViewController.swift */; };
+		84EA838F25E639E300C60294 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 84EA838E25E639E300C60294 /* SwiftyJSON */; };
+		84EA839325E63A2B00C60294 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 84EA839225E63A2B00C60294 /* Alamofire */; };
+		84EA839625E6491100C60294 /* AirApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EA839525E6491100C60294 /* AirApi.swift */; };
+		84EA839A25E6A86300C60294 /* Air.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84EA839925E6A86300C60294 /* Air.storyboard */; };
+		84EA839D25E6A88000C60294 /* AirDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EA839C25E6A88000C60294 /* AirDetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -76,6 +83,8 @@
 		8411458F25E3FF1F0053165F /* LocationListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationListViewController.swift; sourceTree = "<group>"; };
 		8411459325E3FF4B0053165F /* LocationSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchViewController.swift; sourceTree = "<group>"; };
 		8415F84125DFFB80004EF3BF /* LoadingHUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingHUD.swift; sourceTree = "<group>"; };
+		8419294F25E6AE4700D3F5B5 /* AirDetailCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirDetailCollectionViewCell.swift; sourceTree = "<group>"; };
+		8419295025E6AE4700D3F5B5 /* AirDetailCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AirDetailCollectionViewCell.xib; sourceTree = "<group>"; };
 		842F7AA525E49313005736D6 /* LocationListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationListTableViewCell.swift; sourceTree = "<group>"; };
 		842F7AA625E49313005736D6 /* LocationListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LocationListTableViewCell.xib; sourceTree = "<group>"; };
 		8435E8BA25E09F360012F1FB /* MemoDbConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoDbConfig.swift; sourceTree = "<group>"; };
@@ -133,6 +142,9 @@
 		84A6E44325DA77FB00806DFF /* PopupPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupPickerViewController.swift; sourceTree = "<group>"; };
 		84A6E44E25DA944E00806DFF /* RealmModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmModel.swift; sourceTree = "<group>"; };
 		84B1BCED25DEC13800DACF89 /* StartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
+		84EA839525E6491100C60294 /* AirApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirApi.swift; sourceTree = "<group>"; };
+		84EA839925E6A86300C60294 /* Air.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Air.storyboard; sourceTree = "<group>"; };
+		84EA839C25E6A88000C60294 /* AirDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirDetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,6 +153,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				84A6E44C25DA93DF00806DFF /* RealmSwift in Frameworks */,
+				84EA839325E63A2B00C60294 /* Alamofire in Frameworks */,
+				84EA838F25E639E300C60294 /* SwiftyJSON in Frameworks */,
 				84A6E44A25DA93DF00806DFF /* Realm in Frameworks */,
 				84A6E40325DA5F1F00806DFF /* FSCalendar in Frameworks */,
 				8465C3F225DE47CF0078DEBB /* HealthKit.framework in Frameworks */,
@@ -186,6 +200,7 @@
 				8435E8BA25E09F360012F1FB /* MemoDbConfig.swift */,
 				849E354725E5394E00189965 /* LocationDbConfig.swift */,
 				8467E32825E2A09D00EC6B4E /* LocationConfig.swift */,
+				84EA839525E6491100C60294 /* AirApi.swift */,
 			);
 			path = config;
 			sourceTree = "<group>";
@@ -233,6 +248,7 @@
 		84A6E3EA25DA5ECA00806DFF /* walkingDay */ = {
 			isa = PBXGroup;
 			children = (
+				84EA839825E6A82E00C60294 /* Air */,
 				8465C3EF25DE47CF0078DEBB /* walkingDay.entitlements */,
 				8485F97C25DD89010021F35A /* Gif */,
 				84A6E43325DA6AC100806DFF /* Realm */,
@@ -311,6 +327,8 @@
 				8435E8C425E0AD2D0012F1FB /* SingleTableViewCell.xib */,
 				842F7AA525E49313005736D6 /* LocationListTableViewCell.swift */,
 				842F7AA625E49313005736D6 /* LocationListTableViewCell.xib */,
+				8419294F25E6AE4700D3F5B5 /* AirDetailCollectionViewCell.swift */,
+				8419295025E6AE4700D3F5B5 /* AirDetailCollectionViewCell.xib */,
 			);
 			path = XIB;
 			sourceTree = "<group>";
@@ -321,6 +339,15 @@
 				84A6E44E25DA944E00806DFF /* RealmModel.swift */,
 			);
 			path = Realm;
+			sourceTree = "<group>";
+		};
+		84EA839825E6A82E00C60294 /* Air */ = {
+			isa = PBXGroup;
+			children = (
+				84EA839C25E6A88000C60294 /* AirDetailViewController.swift */,
+				84EA839925E6A86300C60294 /* Air.storyboard */,
+			);
+			path = Air;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -345,6 +372,8 @@
 				84A6E44925DA93DF00806DFF /* Realm */,
 				84A6E44B25DA93DF00806DFF /* RealmSwift */,
 				8485F99D25DD8C7E0021F35A /* SwiftyGif */,
+				84EA838E25E639E300C60294 /* SwiftyJSON */,
+				84EA839225E63A2B00C60294 /* Alamofire */,
 			);
 			productName = walkingDay;
 			productReference = 84A6E3E825DA5ECA00806DFF /* walkingDay.app */;
@@ -379,6 +408,8 @@
 				84A6E40525DA5F5D00806DFF /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
 				84A6E44825DA93DF00806DFF /* XCRemoteSwiftPackageReference "realm-cocoa" */,
 				8485F99C25DD8C7E0021F35A /* XCRemoteSwiftPackageReference "SwiftyGif" */,
+				84EA838D25E639E300C60294 /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
+				84EA839125E63A2B00C60294 /* XCRemoteSwiftPackageReference "Alamofire" */,
 			);
 			productRefGroup = 84A6E3E925DA5ECA00806DFF /* Products */;
 			projectDirPath = "";
@@ -395,6 +426,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				84A6E3F825DA5ECB00806DFF /* LaunchScreen.storyboard in Resources */,
+				8419295225E6AE4700D3F5B5 /* AirDetailCollectionViewCell.xib in Resources */,
 				84A6E43725DA6AEF00806DFF /* TodoTableViewCell.xib in Resources */,
 				8485F9CB25DDA7D70021F35A /* weather5@3x.gif in Resources */,
 				8485F9B725DDA7CE0021F35A /* sun@3x.gif in Resources */,
@@ -423,6 +455,7 @@
 				8485F9C725DDA7D70021F35A /* weather4@3x.gif in Resources */,
 				84A6E41625DA632300806DFF /* Home.storyboard in Resources */,
 				8485F9CA25DDA7D70021F35A /* dust3@3x.gif in Resources */,
+				84EA839A25E6A86300C60294 /* Air.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -433,6 +466,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8419295125E6AE4700D3F5B5 /* AirDetailCollectionViewCell.swift in Sources */,
 				84A6E41C25DA64D800806DFF /* PopupDatePickerViewController.swift in Sources */,
 				849E354825E5394E00189965 /* LocationDbConfig.swift in Sources */,
 				8415F84225DFFB80004EF3BF /* LoadingHUD.swift in Sources */,
@@ -444,6 +478,7 @@
 				84A6E41F25DA652900806DFF /* DefaultBtn.swift in Sources */,
 				84A6E42225DA653500806DFF /* SubViewBackgroundDesign.swift in Sources */,
 				84A6E3EC25DA5ECA00806DFF /* AppDelegate.swift in Sources */,
+				84EA839D25E6A88000C60294 /* AirDetailViewController.swift in Sources */,
 				8435E8C125E0AB530012F1FB /* MenuViewController.swift in Sources */,
 				84A6E43025DA68BE00806DFF /* Extension.swift in Sources */,
 				8411459425E3FF4B0053165F /* LocationSearchViewController.swift in Sources */,
@@ -454,6 +489,7 @@
 				84A6E43625DA6AEF00806DFF /* TodoTableViewCell.swift in Sources */,
 				8465C3FD25DE54EB0078DEBB /* WalkCollectionViewCell.swift in Sources */,
 				84A6E42725DA659C00806DFF /* TodoListViewController.swift in Sources */,
+				84EA839625E6491100C60294 /* AirApi.swift in Sources */,
 				8467E32925E2A09D00EC6B4E /* LocationConfig.swift in Sources */,
 				84A6E3EE25DA5ECA00806DFF /* SceneDelegate.swift in Sources */,
 				84A6E41925DA633700806DFF /* HomeViewController.swift in Sources */,
@@ -704,6 +740,22 @@
 				minimumVersion = 10.5.2;
 			};
 		};
+		84EA838D25E639E300C60294 /* XCRemoteSwiftPackageReference "SwiftyJSON" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SwiftyJSON/SwiftyJSON.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+		84EA839125E63A2B00C60294 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.4.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -731,6 +783,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 84A6E44825DA93DF00806DFF /* XCRemoteSwiftPackageReference "realm-cocoa" */;
 			productName = RealmSwift;
+		};
+		84EA838E25E639E300C60294 /* SwiftyJSON */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 84EA838D25E639E300C60294 /* XCRemoteSwiftPackageReference "SwiftyJSON" */;
+			productName = SwiftyJSON;
+		};
+		84EA839225E63A2B00C60294 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 84EA839125E63A2B00C60294 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

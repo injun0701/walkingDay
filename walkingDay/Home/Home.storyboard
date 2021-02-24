@@ -405,6 +405,8 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="airValueLbl" destination="JlI-wK-LnF" id="28U-zC-NkA"/>
+                        <outlet property="airView" destination="358-cP-aL4" id="kdl-yC-yQ4"/>
                         <outlet property="backgroundImg" destination="hZ6-yZ-lgM" id="JgU-70-2NY"/>
                         <outlet property="locationLbl" destination="XtK-lh-8qF" id="Zao-aL-kAH"/>
                         <outlet property="locationView" destination="tbU-gd-hUX" id="81i-D0-v8Q"/>

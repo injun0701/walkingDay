@@ -18,6 +18,17 @@ class LocationDbManager {
         return locationList
     }
     
+    //체크된 리스트 인덱스
+    func locationIdCheckIndex() -> Int {
+        //변한 위치리스트 순서와 비교할 변수
+        let realm = try! Realm()
+        let location = LocationDbManager.shared.locationList().sorted(byKeyPath: "id")
+        let locationIdCheck = realm.objects(LocationList.self).filter("isChecked == true").first
+        let locationIdCheckIndex = location.index(of: locationIdCheck!)
+        return locationIdCheckIndex!
+    }
+    
+    
     //로케이션리스트 중복되지 않는 id 발급
     func createNewId() -> Int {
         let realm = try! Realm()

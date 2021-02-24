@@ -5,8 +5,6 @@
 //  Created by HongInJun on 2021/02/23.
 //
 
-import UIKit
-
 class LocationListViewController: UIViewController {
 
     @IBOutlet var locationListTableView: UITableView!
@@ -15,6 +13,7 @@ class LocationListViewController: UIViewController {
         navigationController?.popToRootViewController(animated: true)
     }
     
+    //현재 주소 도시값
     var currentLocationValue = ""
     
     override func viewDidLoad() {
@@ -76,12 +75,18 @@ extension LocationListViewController: UITableViewDelegate, UITableViewDataSource
             
             //starButtonTapHandler 작성
             cell.starButtonTapHandler = {
-             
+                let ad = UIApplication.shared.delegate as? AppDelegate
+                if LocationDbManager.shared.locationIdCheckIndex() == indexPath.row {
+                    ad?.checkCityChange = false
+                } else {
+                    ad?.checkCityChange = true
+                }
                 for i in 0..<LocationDbManager.shared.locationList()!.count {
                     LocationDbManager.shared.locationListCheckUpdate(LocationListIndexPathRow: i, isChecked: false)
                 }
                 LocationDbManager.shared.locationListCheckUpdate(LocationListIndexPathRow: indexPath.row, isChecked: true)
                 self.locationListTableView.reloadData()
+               
             }
             
             //deleteButtonHandler 작성

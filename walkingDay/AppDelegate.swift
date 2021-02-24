@@ -12,6 +12,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     
+    //미세먼지 데이터
+    var pm10Grade = ""
+    var pm10Value = ""
+    var pm25Grade = ""
+    var pm25Value = ""
+    var no2Grade = ""
+    var no2Value = ""
+    var o3Grade = ""
+    var o3Value = ""
+    var coGrade = ""
+    var coValue = ""
+    var so2Grade = ""
+    var so2Value = ""
+    
+    var checkCityChange = false
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         IQKeyboardManager.shared.enable = true

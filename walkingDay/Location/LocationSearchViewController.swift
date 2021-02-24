@@ -19,9 +19,6 @@ class LocationSearchViewController: UIViewController {
     
     @IBAction func saveBtnAction(_ sender: UIButton) {
         let locationCityFilter = LocationDbManager.shared.locationList()?.filter("city == '\(cityValue)'")
-        
-        print(cityValue)
-        print(contentText)
         //Todo, TodoDate 생성 밑 업데이트
         if tableSection == 0 { //섹션0
             if cityValue == contentText {

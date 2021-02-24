@@ -5,12 +5,16 @@
 //  Created by HongInJun on 2021/02/15.
 //
 
+import Alamofire
+import SwiftyJSON
 import SwiftyGif
 
-class HomeViewController: UIViewController {
+class HomeViewController: UIViewController, CLLocationManagerDelegate {
     
     @IBOutlet var locationLbl: UILabel!
     @IBOutlet var locationView: UIView!
+    @IBOutlet var airValueLbl: UILabel!
+    @IBOutlet var airView: SubViewBackgroundDesignBtn!
     
     @IBOutlet var backgroundImg: UIImageView!
     @IBOutlet var walkBarContainerWidth: NSLayoutConstraint!
@@ -25,6 +29,9 @@ class HomeViewController: UIViewController {
         LoadingHUD.show()
         //네트워크 체크
         selfCheckDeviceNetworkStatus()
+        //로케이션 세팅 + 미세먼지 api
+        loctionFuncGroupPlusAirAip()
+
         //healthStore에서 걸음수 가져오기
         getTodaySteps(healthStore: self.healthStore) { (result) in
             self.todayWalkCountVelue = "\(result)"
@@ -46,8 +53,6 @@ class HomeViewController: UIViewController {
             self.walkCollectionView.reloadData()
             LoadingHUD.hide()
         }
-        //위치 권한 체크 및 요청
-        checkCoorLatitudeAndCoorLongitude()
         //걸음수 바 애니매이션 함수
         walkBarWightTransition()
         locationCheck()
@@ -85,7 +90,7 @@ class HomeViewController: UIViewController {
     let healthStore = HKHealthStore()
     
     //걸음 수 배열
-    var walk : [Walk] = []
+    var walk : [WalkModel] = []
     //이전 화면에서 넘어온 값들 수 배열
     var todayWalkCountVelue = "0"
     var stepCountVelueDayBefore = "0"
@@ -101,11 +106,18 @@ class HomeViewController: UIViewController {
     //로케이션 매니저
     var locationManager:CLLocationManager!
     //위경도
-    var latitude: Double?
-    var longitude: Double?
+    var latitude = 0.0
+    var longitude = 0.0
     //위경도 값
     var coorLatitude = 0.0
     var coorLongitude = 0.0
+    
+    //지역 위치값
+    var province = "서울특별시"
+    var city = "중구"
+    
+    //api 소스
+    let apiKey = "tHdaFkeZaI9Bkc1GCSnDqZ76KjZQGbNNh4kX38IzDT2GmbD3McHV%2BzZV5%2F5ygds3p%2BVZ3rOtvxHCJcoCAzlmTg%3D%3D"
     
     //MARK: viewDidLoad
     override func viewDidLoad() {
@@ -118,9 +130,14 @@ class HomeViewController: UIViewController {
         walkCollectionViewData()
         //컬랙션뷰 세팅
         walkCollectionViewSet()
+        
         //MARK: LocationList으로 이동
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(locationViewTapped))
         locationView.addGestureRecognizer(tapGestureRecognizer)
+        
+        //MARK: AirDetail로 이동
+        let tapGestureRecognizerAir = UITapGestureRecognizer(target: self, action: #selector(airViewTapped))
+        airView.addGestureRecognizer(tapGestureRecognizerAir)
     }
     
     @objc func locationViewTapped(sender: UITapGestureRecognizer) {
@@ -129,7 +146,42 @@ class HomeViewController: UIViewController {
         navi.currentLocationValue = locationLbl.text!
         self.navigationController?.pushViewController(navi, animated: true)
     }
-
+    
+    @objc func airViewTapped(sender: UITapGestureRecognizer) {
+        let sb = UIStoryboard(name: "Air", bundle: nil)
+        guard let navi = sb.instantiateViewController(withIdentifier: "AirDetailViewController") as? AirDetailViewController else { return }
+        navi.cityTitle = locationLbl.text!
+        self.navigationController?.pushViewController(navi, animated: true)
+    }
+    
+    //MARK: 미세먼지 api 그룹
+    func airAipGroup(action: @escaping () -> Void) {
+        measuringStationApi(apiKey: apiKey, province: province, city: city) { (resultDmX, resultDmY) in
+            let resultDmX = resultDmX
+            let resultDmY = resultDmY
+            self.searchMeasuringStationApi(apiKey: self.apiKey, resultDmX: resultDmX, resultDmY: resultDmY) { (result) in
+                let result = result
+                self.airApi(apiKey: self.apiKey, measuringStation: result) { pm10Grade,pm10Value,pm25Grade,pm25Value,no2Grade,no2Value,o3Grade,o3Value,coGrade,coValue,so2Grade,so2Value  in
+                    self.airValueLbl.text = pm10Grade
+                    let ad = UIApplication.shared.delegate as? AppDelegate
+                    ad?.pm10Grade = pm10Grade
+                    ad?.pm10Value = pm10Value
+                    ad?.pm25Grade = pm25Grade
+                    ad?.pm25Value = pm25Value
+                    ad?.no2Grade = no2Grade
+                    ad?.no2Value = no2Value
+                    ad?.o3Grade = o3Grade
+                    ad?.o3Value = o3Value
+                    ad?.coGrade = coGrade
+                    ad?.coValue = coValue
+                    ad?.so2Grade = so2Grade
+                    ad?.so2Value = so2Value
+                    action()
+                }
+            }
+        }
+    }
+    
     //날씨 배경 이미지 세팅
     func backgroundImgSet() {
         gifSet(gifName: "rainMask@3x.gif")
@@ -143,6 +195,7 @@ class HomeViewController: UIViewController {
     
     //디자인세팅
     func DesignSet() {
+        locationLbl.text = province + " " + city
         walkBar.layer.cornerRadius = 3
         walkBar.layer.masksToBounds = false
         walkBar.layer.backgroundColor = UIColor().mainColorOrange.cgColor
@@ -154,16 +207,16 @@ class HomeViewController: UIViewController {
         formatter.dateFormat = "yyyy MM dd" // 날짜 포맷 지정
         
         walk = [
-            Walk(text: stepCountVelueDayBefore, date: formatter.string(from: Date().dayBefore)),
-            Walk(text: stepCountVelueTwoDaysAgo, date: formatter.string(from: Date().twoDaysAgo)),
-            Walk(text: stepCountVelueThreeDaysAgo, date: formatter.string(from: Date().threeDaysAgo)),
-            Walk(text: stepCountVelueFourDaysAgo, date: formatter.string(from: Date().fourDaysAgo)),
-            Walk(text: stepCountVelueFiveDaysAgo, date: formatter.string(from: Date().fiveDaysAgo)),
-            Walk(text: stepCountVelueSixDaysAgo, date: formatter.string(from: Date().sixDaysAgo))
+            WalkModel(text: stepCountVelueDayBefore, date: formatter.string(from: Date().dayBefore)),
+            WalkModel(text: stepCountVelueTwoDaysAgo, date: formatter.string(from: Date().twoDaysAgo)),
+            WalkModel(text: stepCountVelueThreeDaysAgo, date: formatter.string(from: Date().threeDaysAgo)),
+            WalkModel(text: stepCountVelueFourDaysAgo, date: formatter.string(from: Date().fourDaysAgo)),
+            WalkModel(text: stepCountVelueFiveDaysAgo, date: formatter.string(from: Date().fiveDaysAgo)),
+            WalkModel(text: stepCountVelueSixDaysAgo, date: formatter.string(from: Date().sixDaysAgo))
        ]
     }
     
-    //테이블뷰 세팅
+    //컬랙션뷰 세팅
     func walkCollectionViewSet() {
         walkCollectionView.delegate = self
         walkCollectionView.dataSource = self
@@ -182,9 +235,67 @@ class HomeViewController: UIViewController {
             self.walkCountLbl.text = "\(result)"
         }
         LoadingHUD.show()
-        //위치 권한 체크 및 요청
-        checkCoorLatitudeAndCoorLongitude()
-        locationCheck()
+        //네트워크 체크
+        selfCheckDeviceNetworkStatus()
+       
+        viewWillAppearSet()
+    }
+    
+    //MARK: 로케이션 viewWillAppear 세팅
+    func viewWillAppearSet() {
+        //위치 리스트 체크값이 변경되는지 체크
+        let checkCityChange = true
+        let ad = UIApplication.shared.delegate as? AppDelegate
+        if checkCityChange == ad?.checkCityChange {
+            loctionFuncGroupPlusAirAip()
+            print("미세먼지 작동!")
+            ad?.checkCityChange = false
+        } else {
+            loctionFuncGroup()
+            print("미세먼지 작동 안함!!1!")
+        }
+    }
+    
+    //로케이션 세팅
+    func loctionFuncGroup() {
+        let ad = UIApplication.shared.delegate as? AppDelegate
+        //위치 디비 isChecked 체크
+        LocationDbManagerIsChecked {
+            //위치 권한 체크 및 요청
+            checkCoorLatitudeAndCoorLongitude(latitude: latitude, longitude: longitude, coorLatitude: coorLatitude, coorLongitude: coorLongitude) { (province, city) in
+                self.locationLbl.text = province + " " + city
+                self.airValueLbl.text = ad?.pm10Grade
+                LoadingHUD.hide()
+            }
+        } action2: {
+            let locationDbManagerIsChecked = LocationDbManager.shared.locationList()?.filter("isChecked == true")
+            province = locationDbManagerIsChecked?.first?.provinces ?? "서울특별시"
+            city = locationDbManagerIsChecked?.first?.city ?? "중구"
+            self.locationLbl.text = province + " " + city
+            self.airValueLbl.text = ad?.pm10Grade
+            LoadingHUD.hide()
+        }
+    }
+    
+    //로케이션 세팅 + 미세먼지 api
+    func loctionFuncGroupPlusAirAip() {
+        LocationDbManagerIsChecked {
+            //위치 권한 체크 및 요청
+            checkCoorLatitudeAndCoorLongitude(latitude: latitude, longitude: longitude, coorLatitude: coorLatitude, coorLongitude: coorLongitude) { (province, city) in
+                self.locationLbl.text = province + " " + city
+                self.airAipGroup {
+                    LoadingHUD.hide()
+                }
+            }
+        } action2: {
+            let LocationDbManagerIsChecked = LocationDbManager.shared.locationList()?.filter("isChecked == true")
+            province = LocationDbManagerIsChecked?.first?.provinces ?? "서울특별시"
+            city = LocationDbManagerIsChecked?.first?.city ?? "중구"
+            self.locationLbl.text = province + " " + city
+            airAipGroup {
+                LoadingHUD.hide()
+            }
+        }
     }
     
     //MARK: viewDidAppear
@@ -221,70 +332,6 @@ class HomeViewController: UIViewController {
                 self.view.layoutIfNeeded()
             }.startAnimation()
         }
-    }
-}
-
-//MARK: 현재 위치 구현
-extension HomeViewController: CLLocationManagerDelegate {
-    //위치 권한 체크 및 요청
-    func checkCoorLatitudeAndCoorLongitude() {
-        //위경도 둘 중 하나라도 0.0이면 함수 재실행
-        if coorLatitude == 0.0 || coorLongitude == 0.0  {
-            //위치 권한 버튼을 클릭해야지 다음 함수 실행
-            LocationManager.sharedInstance.runLocationBlock {
-                //insert location code here
-                self.callLocationManager {
-                    //위치 경도 추출
-                    self.currentLocation()
-                }
-            }
-        }
-    }
-    
-    //위치 불러오는 함수
-    func callLocationManager(after: @escaping () -> ()) {
-        locationManager = CLLocationManager()
-    
-        if CLLocationManager.locationServicesEnabled() {
-            locationManager.delegate = self
-            //배터리에 맞게 권장되는 최적의 정확도
-            //locationManager.desiredAccuracy = kCLLocationAccuracyBest
-            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
-            //위치 업데이트
-            locationManager.startUpdatingLocation()
-        }
-        
-        let coor = locationManager.location?.coordinate
-        
-        coorLatitude = coor?.latitude ?? 0
-        coorLongitude = coor?.longitude ?? 0
-        after()
-    }
-    
-    //위치 경도 추출
-    func currentLocation() {
-        //위,경도 가져오기
-        latitude = coorLatitude
-        longitude = coorLongitude
-        
-        let findLocation = CLLocation(latitude: latitude!, longitude: longitude!)
-        let geocoder = CLGeocoder()
-        //나라 언어 코드
-        let locale = Locale(identifier: "Ko-kr")
-        geocoder.reverseGeocodeLocation(findLocation, preferredLocale: locale, completionHandler: {(
-            placemarks, error) in
-            if let address: [CLPlacemark] = placemarks {
-                //address.last?.thoroughfare 00동 or 도로명 //.subLocality 00동 //.stringWithoutDigit 구 //.subThoroughfare 지번 //.locality 00시 //.administrativeArea 00도 //.country 대한민국
-                if let name: String = address.last?.administrativeArea, let name2: String = address.last?.locality{
-                    //숫자제거
-                    let stringWithoutDigit = name.components(separatedBy: ["0","1","2","3","4","5","6","7","8","9"]).joined()
-                    let stringWithoutDigit2 = name2.components(separatedBy: ["0","1","2","3","4","5","6","7","8","9"]).joined()
-                    self.locationLbl.text = stringWithoutDigit + " " + stringWithoutDigit2
-                    //위치정보 권한 체크
-                    LoadingHUD.hide()
-                } //전체 주소
-            }
-        })
     }
 }
 
@@ -346,7 +393,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
     }
 }
 
-struct Walk {
+struct WalkModel {
     var text: String
     var date: String
     

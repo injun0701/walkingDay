@@ -170,7 +170,7 @@ extension UIViewController {
             
         }
     }
-    
+    //위치 권한 체크
     @objc func locationCheck() {
         let status = CLLocationManager.authorizationStatus()
         
@@ -191,6 +191,16 @@ extension UIViewController {
             alter.addAction(logNoAction)
             alter.addAction(logOkAction)
             self.present(alter, animated: true, completion: nil)
+        }
+    }
+    
+    //위치 디비 isChecked 체크
+    func LocationDbManagerIsChecked(checkCoorLatitudeAndCoorLongitude: () -> Void, action2: () -> Void) {
+        if LocationDbManager.shared.locationList()?.filter("id == 0").first?.isChecked == true {
+            //위치 권한 체크 및 요청
+            checkCoorLatitudeAndCoorLongitude()
+        } else {
+           action2()
         }
     }
     
@@ -335,4 +345,75 @@ extension UINavigationController {
         return previousViewController
     }
     
+}
+
+//MARK: CLLocationManagerDelegate extension
+extension CLLocationManagerDelegate {
+    //MARK: 현재 위치 구현
+    //위치 권한 체크 및 요청
+    func checkCoorLatitudeAndCoorLongitude(latitude:Double, longitude:Double, coorLatitude: Double, coorLongitude: Double, after: @escaping (_ province: String, _ city: String) -> ())  {
+        var latitudeCopy = latitude
+        var longitudeCopy = longitude
+        var coorLatitudeCopy = coorLatitude
+        var coorLongitudeCopy = coorLongitude
+        //위경도 둘 중 하나라도 0.0이면 함수 재실행
+        if coorLatitude == 0.0 || coorLongitude == 0.0  {
+            //위치 권한 버튼을 클릭해야지 다음 함수 실행
+            LocationManager.sharedInstance.runLocationBlock {
+                //insert location code here
+                self.callLocationManager(coorLatitude: &coorLatitudeCopy, coorLongitude: &coorLongitudeCopy) {coorLatitude, coorLongitude in
+                    //위치 경도 추출
+                    var coorLatitudeCopy = coorLatitude
+                    var coorLongitudeCopy = coorLongitude
+                    self.currentLocation(latitude: &latitudeCopy, longitude: &longitudeCopy, coorLatitude: &coorLatitudeCopy, coorLongitude: &coorLongitudeCopy) {province, city in
+                        after(province, city)
+                    }
+                }
+            }
+        }
+    }
+    
+    //위치 불러오는 함수
+    func callLocationManager(coorLatitude: inout Double, coorLongitude: inout Double, after: @escaping (_ coorLatitude: Double, _ coorLongitude: Double) -> ()) {
+        let locationManager = CLLocationManager()
+    
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.delegate = self
+            //배터리에 맞게 권장되는 최적의 정확도
+            //locationManager.desiredAccuracy = kCLLocationAccuracyBest
+            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+            //위치 업데이트
+            locationManager.startUpdatingLocation()
+        }
+        
+        let coor = locationManager.location?.coordinate
+        
+        coorLatitude = coor?.latitude ?? 0
+        coorLongitude = coor?.longitude ?? 0
+        after(coorLatitude, coorLongitude)
+    }
+    
+    //위치 경도 추출
+    func currentLocation(latitude: inout Double, longitude: inout Double,coorLatitude: inout Double, coorLongitude: inout Double, after: @escaping (_ province: String, _ city: String) -> ()) {
+        //위,경도 가져오기
+        latitude = coorLatitude
+        longitude = coorLongitude
+        
+        let findLocation = CLLocation(latitude: latitude, longitude: longitude)
+        let geocoder = CLGeocoder()
+        //나라 언어 코드
+        let locale = Locale(identifier: "Ko-kr")
+        geocoder.reverseGeocodeLocation(findLocation, preferredLocale: locale, completionHandler: {(
+            placemarks, error) in
+            if let address: [CLPlacemark] = placemarks {
+                //address.last?.thoroughfare 00동 or 도로명 //.subLocality 00동 //.stringWithoutDigit 구 //.subThoroughfare 지번 //.locality 00시 //.administrativeArea 00도 //.country 대한민국
+                if let name: String = address.last?.administrativeArea, let name2: String = address.last?.locality{
+                    //숫자제거
+                    let province = name.components(separatedBy: ["0","1","2","3","4","5","6","7","8","9"]).joined()
+                    let city = name2.components(separatedBy: ["0","1","2","3","4","5","6","7","8","9"]).joined()
+                    after(province, city)
+                } //전체 주소
+            }
+        })
+    }
 }
