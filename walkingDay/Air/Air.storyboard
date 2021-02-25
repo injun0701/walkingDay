@@ -55,26 +55,26 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="보통" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WbA-EP-dFx">
-                                <rect key="frame" x="191" y="373" width="32" height="22"/>
+                                <rect key="frame" x="191" y="341" width="32" height="22"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                 <color key="textColor" name="textColor555555"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="미세먼지가 별로 없네요.  산책 다니기 좋아요!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y02-1u-Wb6">
-                                <rect key="frame" x="139" y="400" width="136.5" height="33.5"/>
+                                <rect key="frame" x="139" y="368" width="136.5" height="33.5"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                 <color key="textColor" name="textColor888888"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="o77-Rb-cHG">
-                                <rect key="frame" x="107" y="163" width="200" height="210"/>
+                                <rect key="frame" x="107" y="151" width="200" height="210"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="200" id="SWo-wi-vx3"/>
                                     <constraint firstAttribute="height" constant="210" id="iSL-Vq-Vwb"/>
                                 </constraints>
                             </imageView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="XWh-1N-iWE">
-                                <rect key="frame" x="0.0" y="463.5" width="414" height="432.5"/>
+                                <rect key="frame" x="0.0" y="431.5" width="414" height="464.5"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="Lyt-Wt-p9z">
                                     <size key="itemSize" width="128" height="128"/>
@@ -99,7 +99,7 @@
                         <constraints>
                             <constraint firstItem="y02-1u-Wb6" firstAttribute="top" secondItem="WbA-EP-dFx" secondAttribute="bottom" constant="5" id="0TS-Qe-vty"/>
                             <constraint firstItem="5hV-xc-C4T" firstAttribute="trailing" secondItem="htb-gb-efJ" secondAttribute="trailing" constant="20" id="6CO-wv-z0R"/>
-                            <constraint firstItem="WbA-EP-dFx" firstAttribute="top" secondItem="o77-Rb-cHG" secondAttribute="bottom" id="956-Yq-wuh"/>
+                            <constraint firstItem="WbA-EP-dFx" firstAttribute="top" secondItem="o77-Rb-cHG" secondAttribute="bottom" constant="-20" id="956-Yq-wuh"/>
                             <constraint firstItem="18n-So-hF0" firstAttribute="centerX" secondItem="5hV-xc-C4T" secondAttribute="centerX" id="ESO-w3-Zu9"/>
                             <constraint firstItem="dI1-zF-HxI" firstAttribute="leading" secondItem="5hV-xc-C4T" secondAttribute="leading" constant="20" id="EhZ-9F-9Tk"/>
                             <constraint firstItem="XWh-1N-iWE" firstAttribute="leading" secondItem="5hV-xc-C4T" secondAttribute="leading" id="Jjs-Ij-bj2"/>
@@ -113,7 +113,7 @@
                             <constraint firstItem="hq4-MP-c2D" firstAttribute="top" secondItem="18n-So-hF0" secondAttribute="bottom" constant="5" id="jUl-eT-BTR"/>
                             <constraint firstItem="XWh-1N-iWE" firstAttribute="trailing" secondItem="5hV-xc-C4T" secondAttribute="trailing" id="tCD-G1-wwf"/>
                             <constraint firstItem="hq4-MP-c2D" firstAttribute="centerX" secondItem="18n-So-hF0" secondAttribute="centerX" id="tms-XK-5p8"/>
-                            <constraint firstItem="o77-Rb-cHG" firstAttribute="top" secondItem="hq4-MP-c2D" secondAttribute="bottom" id="vga-dF-nbq"/>
+                            <constraint firstItem="o77-Rb-cHG" firstAttribute="top" secondItem="hq4-MP-c2D" secondAttribute="bottom" constant="-12" id="vga-dF-nbq"/>
                             <constraint firstItem="XWh-1N-iWE" firstAttribute="top" secondItem="y02-1u-Wb6" secondAttribute="bottom" constant="30" id="yTY-j7-Iy4"/>
                         </constraints>
                     </view>

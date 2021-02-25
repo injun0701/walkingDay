@@ -10,6 +10,7 @@ import UIKit
 class AirDetailCollectionViewCell: UICollectionViewCell {
 
     @IBOutlet var titleLbl: UILabel!
+    @IBOutlet var gradeImgView: UIImageView!
     @IBOutlet var gradeLbl: UILabel!
     @IBOutlet var valueLbl: UILabel!
     

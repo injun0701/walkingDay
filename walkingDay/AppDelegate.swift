@@ -26,6 +26,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var so2Grade = ""
     var so2Value = ""
     
+    var weather = ""
+    var currentTemp = 0.0
+    var feelsLikeTemp = 0.0
+    var humidityText = ""
+    var windText = ""
+    
     var checkCityChange = false
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {

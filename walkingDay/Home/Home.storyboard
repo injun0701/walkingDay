@@ -62,10 +62,10 @@
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hZ6-yZ-lgM">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="667"/>
-                                        <color key="backgroundColor" white="0.75728778449856504" alpha="0.34806257841602856" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </imageView>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="0.20229304231555256" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="hZ6-yZ-lgM" firstAttribute="leading" secondItem="GwT-xb-PaG" secondAttribute="leading" id="Dok-3I-Lmn"/>
                                     <constraint firstAttribute="trailing" secondItem="hZ6-yZ-lgM" secondAttribute="trailing" id="L2I-j1-qDD"/>
@@ -408,6 +408,7 @@
                         <outlet property="airValueLbl" destination="JlI-wK-LnF" id="28U-zC-NkA"/>
                         <outlet property="airView" destination="358-cP-aL4" id="kdl-yC-yQ4"/>
                         <outlet property="backgroundImg" destination="hZ6-yZ-lgM" id="JgU-70-2NY"/>
+                        <outlet property="backgroundView" destination="GwT-xb-PaG" id="3Qb-jB-Hzl"/>
                         <outlet property="locationLbl" destination="XtK-lh-8qF" id="Zao-aL-kAH"/>
                         <outlet property="locationView" destination="tbU-gd-hUX" id="81i-D0-v8Q"/>
                         <outlet property="walkBar" destination="AoO-uL-A9h" id="i6w-GT-WGY"/>
@@ -415,6 +416,8 @@
                         <outlet property="walkCollectionView" destination="NGC-2w-wFA" id="6Bm-RK-kNH"/>
                         <outlet property="walkCountLbl" destination="2qi-vw-bv7" id="uFT-lb-RTh"/>
                         <outlet property="walkTitleLbl" destination="apS-X1-hnw" id="iK6-0F-uOe"/>
+                        <outlet property="weatherLbl" destination="T9s-Kv-eEo" id="FRA-ZY-1VI"/>
+                        <outlet property="weatherTemperLbl" destination="QDK-9w-SGO" id="qaB-8z-SMB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bpa-9A-adY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

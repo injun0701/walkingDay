@@ -43,20 +43,21 @@ class AirDetailViewController: UIViewController {
         cityTitleLbl.text = cityTitle
         let ad = UIApplication.shared.delegate as? AppDelegate
         if ad?.pm10Grade == "좋음" {
-            gifSet(gifName: "dust1@3x.gif")
+            gifSet(gifName: "dust01@3x.gif")
             gradeLbl.text = "좋음"
             contentLbl.text = "오늘은 공기가 매우 깨끗해요.  밖에 나가서 놀아볼까요?"
         } else if ad?.pm10Grade == "보통" {
-            gifSet(gifName: "dust2@3x.gif")
-            gradeLbl.text = "미세먼지가 별로 없네요.  산책 다니기 좋아요!"
+            gifSet(gifName: "dust02@3x.gif")
+            gradeLbl.text = "보통"
+            contentLbl.text = "미세먼지가 별로 없네요.  산책 다니기 좋아요!"
         } else if ad?.pm10Grade == "나쁨" {
-            gifSet(gifName: "dust3@3x.gif")
+            gifSet(gifName: "dust03@3x.gif")
             gradeLbl.text = "나쁨"
-            gradeLbl.text = "미세먼지가 좀 있네요.  마스크 필수에요!"
+            contentLbl.text = "미세먼지가 좀 있네요.  마스크 필수에요!"
         } else {
-            gifSet(gifName: "dust4@3x.gif")
+            gifSet(gifName: "dust04@3x.gif")
             gradeLbl.text = "매우 나쁨"
-            gradeLbl.text = "오늘은 미세먼지가 많이 있네요.  환기 시키면 안돼요!"
+            contentLbl.text = "오늘은 미세먼지가 많이 있네요.  환기 시키면 안돼요!"
         }
     }
     
@@ -105,16 +106,27 @@ extension AirDetailViewController: UICollectionViewDataSource, UICollectionViewD
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AirDetailCollectionViewCell", for: indexPath) as? AirDetailCollectionViewCell else {
             return UICollectionViewCell()
         }
-
         cell.titleLbl.text = air[indexPath.row].title
         cell.gradeLbl.text = air[indexPath.row].grade
+        
+        if air[indexPath.row].grade == "좋음" {
+            cell.gradeImgView.image = UIImage(named: "dust_ico01")
+        } else if air[indexPath.row].grade == "보통" {
+            cell.gradeImgView.image = UIImage(named: "dust_ico02")
+        } else if air[indexPath.row].grade == "나쁨" {
+            cell.gradeImgView.image = UIImage(named: "dust_ico03")
+        } else {
+            cell.gradeImgView.image = UIImage(named: "dust_ico04")
+        }
+        
         cell.valueLbl.text = air[indexPath.row].value
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = Int((UIScreen.main.bounds.width-40)/3)
-        return CGSize(width: width, height: Int(UIScreen.main.bounds.width)/3)
+        let height = Int(Double(UIScreen.main.bounds.width)/3 * 1.2)
+        return CGSize(width: width, height: height)
     }
     
 }

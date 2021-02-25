@@ -28,7 +28,7 @@ class LocationSearchViewController: UIViewController {
                 LocationDbManager.shared.locationListUpdate(LocationListIndexPathRow: cellIndex, provinces: provincesValue, city: cityValue)
                 navigationController?.popViewController(animated: true)
             } else {
-                showAlertBtn1(title: "리스트 저장 오류", message: "이미 같은 지역 리스트가 존재합니다.", btnTitle: "확인")
+                showAlertBtn1(title: "리스트 저장 오류", message: "이미 같은 지역 리스트가 존재합니다.", btnTitle: "확인") {}
             }
         } else { //섹션1
             if locationCityFilter?.first?.city != cityValue {
@@ -36,7 +36,7 @@ class LocationSearchViewController: UIViewController {
                 LocationDbManager.shared.locationListInsert(provinces: provincesValue, city: cityValue, isChecked: false)
                 navigationController?.popViewController(animated: true)
             } else {
-                showAlertBtn1(title: "리스트 저장 오류", message: "이미 같은 지역 리스트가 존재합니다.", btnTitle: "확인")
+                showAlertBtn1(title: "리스트 저장 오류", message: "이미 같은 지역 리스트가 존재합니다.", btnTitle: "확인") {}
             }
         }
     }
@@ -167,7 +167,7 @@ extension LocationSearchViewController {
         let cityOfChungcheongbukdo = ["청주시","충주시","제천시","보은군","옥천군","영동군","증평군","진천군","괴산군","음성군","단양군"]
         let cityOfChungcheongnamdo = ["천안시","공주시","보령시","아산시","서산시","논산시","계룡시","당진시","금산군","부여군","서천군","청양군","홍성군","예산군","태안군"]
         let cityOfDaejeon = ["동구","중구","서구","유성구","대덕구"]
-        let cityOfGyeongsangbukdo = ["경산시","영천시","경주시","영덕군","영양군","청송군","안동군","의성군","군위군","칠곡군","김천시","상주시","예천군","영주시","봉화군","문경군","성주군","고령군","청도군","구미시","울릉군"]
+        let cityOfGyeongsangbukdo = ["경산시","영천시","경주시","영덕군","영양군","청송군","안동시","의성군","군위군","칠곡군","김천시","상주시","예천군","영주시","봉화군","문경시","성주군","고령군","청도군","구미시","울릉군"]
         let cityOfGyeongsangnamdo = ["창원시","양산시","고성군","함양군","남해군","밀양시","통영시","거제시","진주시","거창군","합천군","사천시","김해시","의령군","함안군","창녕군","하동군","산청군"]
         let cityOfDaegu = ["중구","동구","서구","남구","북구","수성구","달서구","달성군"]
         let cityOfUlsan = ["중구","남구","동구","북구","울주군"]

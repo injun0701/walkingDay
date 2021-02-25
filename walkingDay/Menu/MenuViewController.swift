@@ -38,7 +38,7 @@ class MenuViewController: UIViewController {
     var menu : [Menu] = []
     let menuTitleHome = "홈으로 가기"
     let menuTitleWeather = "날씨 보기"
-    let menuTitleDust = "미세먼지 보기"
+    let menuTitleAir = "미세먼지 보기"
     let menuTitleMemo = "메모로 가기"
     let menuTitleSettings = "설정 보기"
     
@@ -54,7 +54,7 @@ class MenuViewController: UIViewController {
         menu = [
             Menu(title: menuTitleHome, img: "menu1"),
             Menu(title: menuTitleWeather, img: "menu2"),
-            Menu(title: menuTitleDust, img: "menu3"),
+            Menu(title: menuTitleAir, img: "menu3"),
             Menu(title: menuTitleMemo, img: "menu4"),
             Menu(title: menuTitleSettings, img: "menu5")
        ]
@@ -127,6 +127,27 @@ extension MenuViewController: UITableViewDelegate, UITableViewDataSource {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
                 self.navigationController?.popToRootViewController(animated: false)
             }
+        } else if menu[indexPath.row].title == menuTitleAir  {
+            closePageBackgroundViewTransition()
+            let ad = UIApplication.shared.delegate as? AppDelegate
+            if ad?.pm10Grade == "" {
+                showAlertBtn1(title: "서버 통신 오류", message: "미세먼지 서버의 데이터를 불러올 수 없습니다.", btnTitle: "확인") {
+                    self.navigationController?.popViewController(animated: false)
+                }
+            } else {
+                //딜레이
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                    if self.navigationController?.previousViewController() is AirDetailViewController {
+                        self.navigationController?.popViewController(animated: false)
+                        print("toback")
+                    } else {
+                        let sb = UIStoryboard(name: "Air", bundle: nil)
+                        guard let navi = sb.instantiateViewController(withIdentifier: "AirDetailViewController") as? AirDetailViewController else { return }
+                        self.navigationController?.pushViewController(navi, animated: false)
+                        print("toair")
+                    }
+                }
+            }
         } else if menu[indexPath.row].title == menuTitleMemo  {
             closePageBackgroundViewTransition()
             //딜레이
@@ -140,9 +161,7 @@ extension MenuViewController: UITableViewDelegate, UITableViewDataSource {
                     self.navigationController?.pushViewController(navi, animated: false)
                     print("tomemo")
                 }
-                
             }
-          
         }
         
     }

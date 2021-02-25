@@ -92,7 +92,7 @@ extension LocationListViewController: UITableViewDelegate, UITableViewDataSource
             //deleteButtonHandler 작성
             cell.deleteButtonTapHandler = {
                 if cellList.isChecked == true {
-                    self.showAlertBtn1(title: "리스트 삭제 오류", message: "체크된 리스트는 삭제하실 수 없습니다.", btnTitle: "확인")
+                    self.showAlertBtn1(title: "리스트 삭제 오류", message: "체크된 리스트는 삭제하실 수 없습니다.", btnTitle: "확인") {}
                 } else {
                     //레코드 삭제
                     LocationDbManager.shared.locationListDelete(LocationListIndexPathRow: indexPath.row)
