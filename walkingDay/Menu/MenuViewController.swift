@@ -127,6 +127,27 @@ extension MenuViewController: UITableViewDelegate, UITableViewDataSource {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
                 self.navigationController?.popToRootViewController(animated: false)
             }
+        } else if menu[indexPath.row].title == menuTitleWeather  {
+            closePageBackgroundViewTransition()
+            let ad = UIApplication.shared.delegate as? AppDelegate
+            if ad?.weather == "" {
+                showAlertBtn1(title: "서버 통신 오류", message: "날씨 서버의 데이터를 불러올 수 없습니다.", btnTitle: "확인") {
+                    self.navigationController?.popViewController(animated: false)
+                }
+            } else {
+                //딜레이
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                    if self.navigationController?.previousViewController() is WeatherDetailViewController {
+                        self.navigationController?.popViewController(animated: false)
+                        print("toback")
+                    } else {
+                        let sb = UIStoryboard(name: "Weather", bundle: nil)
+                        guard let navi = sb.instantiateViewController(withIdentifier: "WeatherDetailViewController") as? WeatherDetailViewController else { return }
+                        self.navigationController?.pushViewController(navi, animated: false)
+                        print("toweather")
+                    }
+                }
+            }
         } else if menu[indexPath.row].title == menuTitleAir  {
             closePageBackgroundViewTransition()
             let ad = UIApplication.shared.delegate as? AppDelegate

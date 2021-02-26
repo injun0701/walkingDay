@@ -101,6 +101,19 @@ extension UIViewController {
             print("Alert이 잘 작동됨")
         }
     }
+    
+    //날씨 배경 이미지 호출 함수
+    func gifSet(gifName: String, imgView: UIImageView) {
+        let gifName = gifName
+        let gif = try! UIImage(gifName: gifName)
+        imgView.setGifImage(gif, loopCount: -1) // Will loop forever
+    }
+    
+    func dateLblSet(lbl: UILabel) {
+        let formatter = DateFormatter() // 특정 포맷으로 날짜를 보여주기 위한 변수 선언
+        formatter.dateFormat = "yyyy년 MM월 dd일" // 날짜 포맷 지정
+        lbl.text = formatter.string(from: Date())
+    }
 }
 
 //MARK: 유아이_컬러 extension
@@ -307,5 +320,26 @@ extension CLLocationManagerDelegate {
                 } //전체 주소
             }
         })
+    }
+}
+
+//MARK: 유아이라벨 extension
+extension UILabel {
+    //text: 라벨의 텍스트 , lineHeight: 
+    func setTextWithLineHeight(text: String?, lineHeight: CGFloat) {
+        if let text = text {
+            let style = NSMutableParagraphStyle()
+            style.maximumLineHeight = lineHeight
+            style.minimumLineHeight = lineHeight
+            
+            let attributes: [NSAttributedString.Key: Any] = [
+                .paragraphStyle: style
+            ]
+                
+            let attrString = NSAttributedString(string: text,
+                                                attributes: attributes)
+            self.attributedText = attrString
+        }
+        
     }
 }

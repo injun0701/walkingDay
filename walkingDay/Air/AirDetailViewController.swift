@@ -11,7 +11,7 @@ class AirDetailViewController: UIViewController {
 
     @IBOutlet var cityTitleLbl: UILabel!
     @IBOutlet var dateLbl: UILabel!
-    @IBOutlet var AirImgView: UIImageView!
+    @IBOutlet var airImgView: UIImageView!
     @IBOutlet var gradeLbl: UILabel!
     @IBOutlet var contentLbl: UILabel!
     @IBOutlet var airCollectionView: UICollectionView!
@@ -25,6 +25,7 @@ class AirDetailViewController: UIViewController {
         navi.backingImage = self.view.asImage() //현재 화면 캡쳐 이미지
         navigationController?.pushViewController(navi, animated: false)
     }
+    
     var cityTitle = ""
     
     //걸음 수 배열
@@ -33,7 +34,7 @@ class AirDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         airSet()
-        dateLblSet()
+        dateLblSet(lbl: dateLbl)
         airCollectionViewSet()
         airCollectionViewData() 
     }
@@ -43,34 +44,22 @@ class AirDetailViewController: UIViewController {
         cityTitleLbl.text = cityTitle
         let ad = UIApplication.shared.delegate as? AppDelegate
         if ad?.pm10Grade == "좋음" {
-            gifSet(gifName: "dust01@3x.gif")
+            gifSet(gifName: "dust01@3x.gif", imgView: airImgView)
             gradeLbl.text = "좋음"
             contentLbl.text = "오늘은 공기가 매우 깨끗해요.  밖에 나가서 놀아볼까요?"
         } else if ad?.pm10Grade == "보통" {
-            gifSet(gifName: "dust02@3x.gif")
+            gifSet(gifName: "dust02@3x.gif", imgView: airImgView)
             gradeLbl.text = "보통"
             contentLbl.text = "미세먼지가 별로 없네요.  산책 다니기 좋아요!"
         } else if ad?.pm10Grade == "나쁨" {
-            gifSet(gifName: "dust03@3x.gif")
+            gifSet(gifName: "dust03@3x.gif", imgView: airImgView)
             gradeLbl.text = "나쁨"
             contentLbl.text = "미세먼지가 좀 있네요.  마스크 필수에요!"
         } else {
-            gifSet(gifName: "dust04@3x.gif")
+            gifSet(gifName: "dust04@3x.gif", imgView: airImgView)
             gradeLbl.text = "매우 나쁨"
             contentLbl.text = "오늘은 미세먼지가 많이 있네요.  환기 시키면 안돼요!"
         }
-    }
-    
-    //날씨 배경 이미지 호출 함수
-    func gifSet(gifName: String) {
-        let gif = try! UIImage(gifName: gifName)
-        self.AirImgView.setGifImage(gif, loopCount: -1) // Will loop forever
-    }
-    
-    func dateLblSet() {
-        let formatter = DateFormatter() // 특정 포맷으로 날짜를 보여주기 위한 변수 선언
-        formatter.dateFormat = "yyyy년 MM월 dd일" // 날짜 포맷 지정
-        dateLbl.text = formatter.string(from: Date())
     }
     
     //컬랙션뷰 세팅

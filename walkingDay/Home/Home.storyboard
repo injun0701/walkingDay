@@ -365,6 +365,12 @@
                                     <constraint firstItem="niu-Ji-eIe" firstAttribute="centerY" secondItem="358-cP-aL4" secondAttribute="centerY" id="qwZ-tP-lqA"/>
                                 </constraints>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="날씨 내용" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HMc-gZ-ssH">
+                                <rect key="frame" x="20" y="190" width="74.5" height="24"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <color key="textColor" name="textColor888888"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KbZ-cY-RE4">
                                 <rect key="frame" x="324" y="59" width="30" height="30"/>
                                 <constraints>
@@ -390,9 +396,11 @@
                             <constraint firstItem="EM3-JF-tlN" firstAttribute="top" secondItem="gz6-IQ-GkL" secondAttribute="top" constant="15" id="FLv-PD-PoM"/>
                             <constraint firstItem="GwT-xb-PaG" firstAttribute="trailing" secondItem="gz6-IQ-GkL" secondAttribute="trailing" id="QZA-xE-elQ"/>
                             <constraint firstItem="358-cP-aL4" firstAttribute="top" secondItem="GwT-xb-PaG" secondAttribute="top" constant="20" id="VTn-Dh-wug"/>
+                            <constraint firstItem="HMc-gZ-ssH" firstAttribute="top" secondItem="lni-pi-xVv" secondAttribute="bottom" constant="20" id="dbR-OI-rW1"/>
                             <constraint firstItem="lni-pi-xVv" firstAttribute="top" secondItem="GwT-xb-PaG" secondAttribute="top" constant="20" id="eqJ-WQ-rKe"/>
                             <constraint firstItem="358-cP-aL4" firstAttribute="leading" secondItem="lni-pi-xVv" secondAttribute="trailing" constant="20" id="fBp-lW-0aa"/>
                             <constraint firstItem="lni-pi-xVv" firstAttribute="width" secondItem="358-cP-aL4" secondAttribute="width" id="hqi-aZ-i9a"/>
+                            <constraint firstItem="HMc-gZ-ssH" firstAttribute="leading" secondItem="gz6-IQ-GkL" secondAttribute="leading" constant="20" id="jdA-1L-7FL"/>
                             <constraint firstItem="tbU-gd-hUX" firstAttribute="leading" secondItem="gz6-IQ-GkL" secondAttribute="leading" constant="20" id="lqM-Pa-gYn"/>
                             <constraint firstItem="tbU-gd-hUX" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="EM3-JF-tlN" secondAttribute="trailing" constant="60" id="p2r-EZ-fvd"/>
                             <constraint firstItem="pyt-fq-wfL" firstAttribute="leading" secondItem="gz6-IQ-GkL" secondAttribute="leading" id="phz-8G-cfE"/>
@@ -416,8 +424,10 @@
                         <outlet property="walkCollectionView" destination="NGC-2w-wFA" id="6Bm-RK-kNH"/>
                         <outlet property="walkCountLbl" destination="2qi-vw-bv7" id="uFT-lb-RTh"/>
                         <outlet property="walkTitleLbl" destination="apS-X1-hnw" id="iK6-0F-uOe"/>
+                        <outlet property="weatherDetailLbl" destination="HMc-gZ-ssH" id="DfD-3j-5Yh"/>
                         <outlet property="weatherLbl" destination="T9s-Kv-eEo" id="FRA-ZY-1VI"/>
                         <outlet property="weatherTemperLbl" destination="QDK-9w-SGO" id="qaB-8z-SMB"/>
+                        <outlet property="weatherView" destination="lni-pi-xVv" id="qmh-ER-fQQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bpa-9A-adY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

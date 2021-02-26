@@ -16,7 +16,9 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate {
     @IBOutlet var weatherLbl: UILabel!
     @IBOutlet var weatherTemperLbl: UILabel!
     @IBOutlet var airValueLbl: UILabel!
+    @IBOutlet var weatherView: SubViewBackgroundDesignBtn!
     @IBOutlet var airView: SubViewBackgroundDesignBtn!
+    @IBOutlet var weatherDetailLbl: UILabel!
     
     @IBOutlet var backgroundImg: UIImageView!
     @IBOutlet var backgroundView: UIView!
@@ -138,6 +140,10 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate {
         locationView.addGestureRecognizer(tapGestureRecognizer)
         
         //MARK: AirDetail로 이동
+        let tapGestureRecognizerWeather = UITapGestureRecognizer(target: self, action: #selector(weatherViewTapped))
+        weatherView.addGestureRecognizer(tapGestureRecognizerWeather)
+        
+        //MARK: AirDetail로 이동
         let tapGestureRecognizerAir = UITapGestureRecognizer(target: self, action: #selector(airViewTapped))
         airView.addGestureRecognizer(tapGestureRecognizerAir)
     }
@@ -145,8 +151,22 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate {
     @objc func locationViewTapped(sender: UITapGestureRecognizer) {
         let sb = UIStoryboard(name: "Location", bundle: nil)
         guard let navi = sb.instantiateViewController(withIdentifier: "LocationListViewController") as? LocationListViewController else { return }
-        navi.currentLocationValue = locationLbl.text!
+        navi.latitude = latitude
+        navi.longitude = longitude
+        navi.coorLatitude = coorLatitude
+        navi.coorLongitude = coorLongitude
         self.navigationController?.pushViewController(navi, animated: true)
+    }
+    
+    @objc func weatherViewTapped(sender: UITapGestureRecognizer) {
+        if ad?.weather == "" {
+            showAlertBtn1(title: "서버 통신 오류", message: "날씨 서버의 데이터를 불러올 수 없습니다.", btnTitle: "확인") {}
+        } else {
+            let sb = UIStoryboard(name: "Weather", bundle: nil)
+            guard let navi = sb.instantiateViewController(withIdentifier: "WeatherDetailViewController") as? WeatherDetailViewController else { return }
+            navi.cityTitle = locationLbl.text!
+            self.navigationController?.pushViewController(navi, animated: true)
+        }
     }
     
     @objc func airViewTapped(sender: UITapGestureRecognizer) {
@@ -215,41 +235,53 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate {
     func backgroundImgSet() {
         if ad?.weather == "맑음" {
             if ad?.pm10Grade == "나쁨" || ad?.pm10Grade == "매우 나쁨" {
-                gifSet(gifName: "sunMask@3x.gif")
+                homeGifSet(gifName: "sunMack@3x.gif")
+                weatherDetailLblText(text: "오늘 날씨는 맑은데 미세먼지가 있네요.  마스크 챙기세요!")
                 backgroundView.backgroundColor = UIColor().colorEEEEEE
             } else {
-                gifSet(gifName: "sun@3x.gif")
+                homeGifSet(gifName: "sun@3x.gif")
+                weatherDetailLblText(text: "해가 떠서 맑고 미세먼지도 깨끗해요.  산책 나가 볼까요?")
                 backgroundView.backgroundColor = UIColor().sub01ColorYellow
             }
         } else if ad?.weather == "비" {
             if ad?.pm10Grade == "나쁨" || ad?.pm10Grade == "매우 나쁨" {
-                gifSet(gifName: "rainMask@3x.gif")
+                homeGifSet(gifName: "rainMask@3x.gif")
+                weatherDetailLbl.text = "우산하고 마스크 꼭 챙기세요!"
                 backgroundView.backgroundColor = UIColor().colorEEEEEE
             } else {
-                gifSet(gifName: "rain@3x.gif")
+                homeGifSet(gifName: "rain@3x.gif")
+                weatherDetailLbl.text = "우산 꼭 챙기세요!"
                 backgroundView.backgroundColor = UIColor().sub01Colorblue
             }
 
         } else if ad?.weather == "눈" {
             if ad?.pm10Grade == "나쁨" || ad?.pm10Grade == "매우 나쁨" {
-                gifSet(gifName: "snowMask@3x.gif")
+                homeGifSet(gifName: "snowMask@3x.gif")
+                weatherDetailLbl.text = "우산하고 마스크 꼭 챙기세요!"
                 backgroundView.backgroundColor = UIColor().colorEEEEEE
             } else {
-                gifSet(gifName: "snow@3x.gif")
+                homeGifSet(gifName: "snow@3x.gif")
+                weatherDetailLbl.text = "우산 꼭 챙기세요!"
                 backgroundView.backgroundColor = UIColor().sub01Colorblue
             }
         } else {
             if ad?.pm10Grade == "나쁨" || ad?.pm10Grade == "매우 나쁨" {
-                gifSet(gifName: "sunMask@3x.gif")
+                homeGifSet(gifName: "sunMask@3x.gif")
+                weatherDetailLblText(text: "날씨가 흐리고 미세먼지가 있네요.  마스크 챙기세요!")
             } else {
-                gifSet(gifName: "sun@3x.gif")
+                homeGifSet(gifName: "sun@3x.gif")
+                weatherDetailLblText(text: "구름이 있어서 날씨가 조금 흐리네요.  간단한 산책 어떠세요?")
             }
             backgroundView.backgroundColor = UIColor().colorEEEEEE
         }
     }
     
+    func weatherDetailLblText(text: String) {
+        weatherDetailLbl.setTextWithLineHeight(text: text, lineHeight: 28)
+    }
+    
     //날씨 배경 이미지 호출 함수
-    func gifSet(gifName: String) {
+    func homeGifSet(gifName: String) {
         let gifName = gifName
         let gif = try? UIImage(gifName: gifName)
         let gifDefult = try! UIImage(gifName: "sun@3x.gif")

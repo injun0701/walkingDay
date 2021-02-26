@@ -118,8 +118,8 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="AirImgView" destination="o77-Rb-cHG" id="y5h-6s-4ei"/>
                         <outlet property="airCollectionView" destination="XWh-1N-iWE" id="k6I-L6-Q7h"/>
+                        <outlet property="airImgView" destination="o77-Rb-cHG" id="y5h-6s-4ei"/>
                         <outlet property="cityTitleLbl" destination="18n-So-hF0" id="W7t-OC-nUm"/>
                         <outlet property="contentLbl" destination="y02-1u-Wb6" id="Ety-Ou-hBH"/>
                         <outlet property="dateLbl" destination="hq4-MP-c2D" id="7aL-Um-IBE"/>

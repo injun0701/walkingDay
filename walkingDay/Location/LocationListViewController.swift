@@ -5,7 +5,7 @@
 //  Created by HongInJun on 2021/02/23.
 //
 
-class LocationListViewController: UIViewController {
+class LocationListViewController: UIViewController, CLLocationManagerDelegate {
 
     @IBOutlet var locationListTableView: UITableView!
     
@@ -15,10 +15,23 @@ class LocationListViewController: UIViewController {
     
     //현재 주소 도시값
     var currentLocationValue = ""
+    //위경도
+    var latitude = 0.0
+    var longitude = 0.0
+    //위경도 값
+    var coorLatitude = 0.0
+    var coorLongitude = 0.0
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableViewSet()
+    }
+    
+    func locationSet(action: @escaping () -> ()) {
+        checkCoorLatitudeAndCoorLongitude(latitude: latitude, longitude: longitude, coorLatitude: coorLatitude, coorLongitude: coorLongitude) { (province, city) in
+            self.currentLocationValue = province + " " + city
+            action()
+        }
     }
     
     //테이블뷰 세팅
@@ -66,7 +79,11 @@ extension LocationListViewController: UITableViewDelegate, UITableViewDataSource
             
             cell.titleLbl.text = cellList.provinces
             if indexPath.row == 0 {
-                cell.contentLbl.text = currentLocationValue
+                LoadingHUD.show()
+                locationSet {
+                    cell.contentLbl.text = self.currentLocationValue
+                    LoadingHUD.hide()
+                }
                 cell.deleteBtn.isHidden = true
             } else {
                 cell.contentLbl.text = cellList.city
