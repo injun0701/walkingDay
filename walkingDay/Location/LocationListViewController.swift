@@ -102,6 +102,7 @@ extension LocationListViewController: UITableViewDelegate, UITableViewDataSource
                     LocationDbManager.shared.locationListCheckUpdate(LocationListIndexPathRow: i, isChecked: false)
                 }
                 LocationDbManager.shared.locationListCheckUpdate(LocationListIndexPathRow: indexPath.row, isChecked: true)
+                UserDefaults.standard.set("\(cellList.provinces) \(cellList.city)", forKey: "cityTitle")
                 self.locationListTableView.reloadData()
                
             }

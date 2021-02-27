@@ -40,7 +40,7 @@ class MenuViewController: UIViewController {
     let menuTitleWeather = "날씨 보기"
     let menuTitleAir = "미세먼지 보기"
     let menuTitleMemo = "메모로 가기"
-    let menuTitleSettings = "설정 보기"
+    let menuTitleSettings = "설정/가타 보기"
     
     //테이블뷰 세팅
     func menuTableViewSet() {
@@ -105,6 +105,8 @@ class MenuViewController: UIViewController {
     }
     
 }
+
+//MARK: 테이블뷰 구현
 extension MenuViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return menu.count
@@ -116,7 +118,7 @@ extension MenuViewController: UITableViewDelegate, UITableViewDataSource {
         }
         cell.contentLbl.isHidden = true
         cell.titleLbl.text = menu[indexPath.row].title
-        cell.imageView?.image = UIImage(named: menu[indexPath.row].img)
+        cell.leftImgView.image = UIImage(named: menu[indexPath.row].img)
         cell.selectionStyle = .none
         return cell
     }
@@ -183,8 +185,21 @@ extension MenuViewController: UITableViewDelegate, UITableViewDataSource {
                     print("tomemo")
                 }
             }
+        } else if menu[indexPath.row].title == menuTitleSettings  {
+            closePageBackgroundViewTransition()
+            //딜레이
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                if self.navigationController?.previousViewController() is SettingsViewController {
+                    self.navigationController?.popViewController(animated: false)
+                    print("toback")
+                } else {
+                    let sb = UIStoryboard(name: "Settings", bundle: nil)
+                    guard let navi = sb.instantiateViewController(withIdentifier: "SettingsViewController") as? SettingsViewController else { return }
+                    self.navigationController?.pushViewController(navi, animated: false)
+                    print("tomemo")
+                }
+            }
         }
-        
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 60

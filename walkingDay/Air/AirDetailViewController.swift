@@ -20,13 +20,8 @@ class AirDetailViewController: UIViewController {
         navigationController?.popToRootViewController(animated: true)
     }
     @IBAction func hambergerMenuBtnAction(_ sender: UIButton) {
-        let sb = UIStoryboard(name: "Menu", bundle: nil)
-        let navi = sb.instantiateViewController(withIdentifier: "MenuViewController") as! MenuViewController
-        navi.backingImage = self.view.asImage() //현재 화면 캡쳐 이미지
-        navigationController?.pushViewController(navi, animated: false)
+        toMenuBtnAction()
     }
-    
-    var cityTitle = ""
     
     //걸음 수 배열
     var air : [AirModle] = []
@@ -41,7 +36,7 @@ class AirDetailViewController: UIViewController {
     
     //날씨 배경 이미지 세팅
     func airSet() {
-        cityTitleLbl.text = cityTitle
+        cityTitleLbl.text = UserDefaults.standard.string(forKey:  "cityTitle")
         let ad = UIApplication.shared.delegate as? AppDelegate
         if ad?.pm10Grade == "좋음" {
             gifSet(gifName: "dust01@3x.gif", imgView: airImgView)

@@ -31,12 +31,6 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HR4-6V-eMS">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="150"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="산책하기 좋은 날" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DEr-Qt-TA5">
-                                                <rect key="frame" x="20" y="106" width="155.5" height="29"/>
-                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
-                                                <color key="textColor" red="1" green="1" blue="1" alpha="0.75" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
                                             <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TA2-CJ-3Vo">
                                                 <rect key="frame" x="364" y="59" width="30" height="30"/>
                                                 <constraints>
@@ -53,11 +47,22 @@
                                         <color key="backgroundColor" name="mainColorOrange"/>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="TA2-CJ-3Vo" secondAttribute="trailing" constant="20" id="AdH-zv-CIo"/>
-                                            <constraint firstItem="DEr-Qt-TA5" firstAttribute="leading" secondItem="HR4-6V-eMS" secondAttribute="leading" constant="20" id="MoL-NJ-uDx"/>
                                             <constraint firstAttribute="height" constant="150" id="R7K-Wx-YE3"/>
-                                            <constraint firstAttribute="bottom" secondItem="DEr-Qt-TA5" secondAttribute="bottom" constant="15" id="sL5-YK-4dn"/>
                                         </constraints>
                                     </view>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="산책하기 좋은 날" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vg6-Ed-QAu">
+                                        <rect key="frame" x="62" y="108.5" width="143" height="26.5"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="0.75" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="loading" translatesAutoresizingMaskIntoConstraints="NO" id="mbz-ud-fJI">
+                                        <rect key="frame" x="12" y="95" width="45" height="45"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="45" id="JnK-fw-rJP"/>
+                                            <constraint firstAttribute="height" constant="45" id="vQf-n0-NsJ"/>
+                                        </constraints>
+                                    </imageView>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="iW9-v4-G0S">
                                         <rect key="frame" x="0.0" y="150" width="414" height="746"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -66,9 +71,13 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstItem="iW9-v4-G0S" firstAttribute="leading" secondItem="iVb-18-g0J" secondAttribute="leading" id="05E-ei-raZ"/>
+                                    <constraint firstItem="vg6-Ed-QAu" firstAttribute="leading" secondItem="mbz-ud-fJI" secondAttribute="trailing" constant="5" id="37D-Th-h23"/>
                                     <constraint firstItem="iW9-v4-G0S" firstAttribute="top" secondItem="HR4-6V-eMS" secondAttribute="bottom" id="F01-C8-hUb"/>
+                                    <constraint firstItem="mbz-ud-fJI" firstAttribute="leading" secondItem="iVb-18-g0J" secondAttribute="leading" constant="12" id="ODW-f9-7WM"/>
                                     <constraint firstAttribute="trailing" secondItem="iW9-v4-G0S" secondAttribute="trailing" id="QtX-NZ-tsm"/>
+                                    <constraint firstItem="iW9-v4-G0S" firstAttribute="top" secondItem="vg6-Ed-QAu" secondAttribute="bottom" constant="15" id="eCp-gh-Gpd"/>
                                     <constraint firstItem="HR4-6V-eMS" firstAttribute="leading" secondItem="iVb-18-g0J" secondAttribute="leading" id="gqO-Pq-fWy"/>
+                                    <constraint firstItem="iW9-v4-G0S" firstAttribute="top" secondItem="mbz-ud-fJI" secondAttribute="bottom" constant="10" id="oDv-sy-eEe"/>
                                     <constraint firstItem="HR4-6V-eMS" firstAttribute="top" secondItem="iVb-18-g0J" secondAttribute="top" id="vwv-OT-48s"/>
                                     <constraint firstAttribute="bottom" secondItem="iW9-v4-G0S" secondAttribute="bottom" id="xCC-Zc-zIR"/>
                                     <constraint firstAttribute="trailing" secondItem="HR4-6V-eMS" secondAttribute="trailing" id="zhc-A7-anN"/>
@@ -108,6 +117,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="loading" width="100" height="100"/>
         <image name="x_white" width="30" height="30"/>
         <namedColor name="mainColorOrange">
             <color red="1" green="0.63099998235702515" blue="0.15299999713897705" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

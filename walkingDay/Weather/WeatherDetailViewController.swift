@@ -20,13 +20,8 @@ class WeatherDetailViewController: UIViewController {
         navigationController?.popToRootViewController(animated: true)
     }
     @IBAction func hambergerMenuBtnAction(_ sender: UIButton) {
-        let sb = UIStoryboard(name: "Menu", bundle: nil)
-        let navi = sb.instantiateViewController(withIdentifier: "MenuViewController") as! MenuViewController
-        navi.backingImage = self.view.asImage() //현재 화면 캡쳐 이미지
-        navigationController?.pushViewController(navi, animated: false)
+        toMenuBtnAction()
     }
-    
-    var cityTitle = ""
     
     var weather: [Weather] = []
     
@@ -40,7 +35,7 @@ class WeatherDetailViewController: UIViewController {
     
     //날씨 배경 이미지 세팅
     func weatherSet() {
-        cityTitleLbl.text = cityTitle
+        cityTitleLbl.text = UserDefaults.standard.string(forKey:  "cityTitle")
         let ad = UIApplication.shared.delegate as? AppDelegate
         if ad?.weather == "맑음" {
             gifSet(gifName: "weather_sun@3x.gif", imgView: weatherImgView)

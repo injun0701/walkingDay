@@ -6,9 +6,10 @@
 //
 
 class SingleTableViewCell: UITableViewCell {
-    @IBOutlet var imgView: UIImageView!
     @IBOutlet var titleLbl: UILabel!
     @IBOutlet var contentLbl: UILabel!
+    @IBOutlet var leftImgView: UIImageView!
+    @IBOutlet var rightImgView: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()

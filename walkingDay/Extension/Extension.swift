@@ -114,6 +114,13 @@ extension UIViewController {
         formatter.dateFormat = "yyyy년 MM월 dd일" // 날짜 포맷 지정
         lbl.text = formatter.string(from: Date())
     }
+    
+    func toMenuBtnAction() {
+        let sb = UIStoryboard(name: "Menu", bundle: nil)
+        let navi = sb.instantiateViewController(withIdentifier: "MenuViewController") as! MenuViewController
+        navi.backingImage = self.view.asImage() //현재 화면 캡쳐 이미지
+        navigationController?.pushViewController(navi, animated: false)
+    }
 }
 
 //MARK: 유아이_컬러 extension

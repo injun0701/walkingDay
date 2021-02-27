@@ -47,16 +47,28 @@
                             </stackView>
                         </subviews>
                     </stackView>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="94e-gm-32t">
+                        <rect key="frame" x="270" y="7" width="30" height="30"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="30" id="blm-hV-CaX"/>
+                            <constraint firstAttribute="width" constant="30" id="de6-JW-W3H"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
                 <constraints>
                     <constraint firstItem="BMi-lw-MnV" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="ZNa-BX-ljD"/>
                     <constraint firstItem="BMi-lw-MnV" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="dlN-So-6Vb"/>
+                    <constraint firstAttribute="trailing" secondItem="94e-gm-32t" secondAttribute="trailing" constant="20" id="hCT-to-ltq"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <constraints>
+                <constraint firstItem="94e-gm-32t" firstAttribute="centerY" secondItem="njF-e1-oar" secondAttribute="centerY" id="nA9-Rg-Ewe"/>
+            </constraints>
             <connections>
                 <outlet property="contentLbl" destination="ea2-LD-kmX" id="96z-2B-hi2"/>
-                <outlet property="imgView" destination="wuE-JT-qsX" id="oHJ-wt-U0X"/>
+                <outlet property="leftImgView" destination="wuE-JT-qsX" id="oHJ-wt-U0X"/>
+                <outlet property="rightImgView" destination="94e-gm-32t" id="fMT-x9-3Yx"/>
                 <outlet property="titleLbl" destination="tF3-FG-PhU" id="fz4-TW-YQ4"/>
             </connections>
             <point key="canvasLocation" x="100" y="90"/>

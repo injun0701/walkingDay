@@ -71,7 +71,17 @@ class StartViewController: UIViewController, CLLocationManagerDelegate {
     func currentLocationListCheck() {
         if LocationDbManager.shared.locationList()?.count == 0 {
             LocationDbManager.shared.locationListInsert(provinces: "현재 위치", city: "", isChecked: true)
+            toIntroPage()
         }
+    }
+    
+    func toIntroPage() {
+        let sb = UIStoryboard(name: "Intro", bundle: nil)
+        let vc = sb.instantiateViewController(withIdentifier: "IntroViewController") as! IntroViewController
+        //옵션 FullScreen
+        vc.modalPresentationStyle = .fullScreen
+        vc.modalTransitionStyle = .crossDissolve
+        present(vc, animated: true, completion: nil)
     }
     
     //MARK: 미세먼지 api 그룹

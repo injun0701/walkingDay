@@ -122,7 +122,7 @@ extension LocationSearchViewController: UITableViewDelegate, UITableViewDataSour
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "SingleTableViewCell", for: indexPath) as? SingleTableViewCell else {
             return UITableViewCell()
         }
-        cell.imgView.isHidden = true
+        cell.leftImgView.isHidden = true
         cell.titleLbl.text = locationDataFilterValue[indexPath.row].province
         cell.contentLbl.text = locationDataFilterValue[indexPath.row].city
         cell.selectionStyle = .none

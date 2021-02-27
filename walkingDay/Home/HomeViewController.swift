@@ -63,10 +63,7 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     @IBAction func hambergerMenuBtnAction(_ sender: UIButton) {
-        let sb = UIStoryboard(name: "Menu", bundle: nil)
-        let navi = sb.instantiateViewController(withIdentifier: "MenuViewController") as! MenuViewController
-        navi.backingImage = self.view.asImage() //현재 화면 캡쳐 이미지
-        navigationController?.pushViewController(navi, animated: false)
+        toMenuBtnAction()
     }
     
     @IBAction func toDetailBtnAction(_ sender: UIButton) {
@@ -164,7 +161,6 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate {
         } else {
             let sb = UIStoryboard(name: "Weather", bundle: nil)
             guard let navi = sb.instantiateViewController(withIdentifier: "WeatherDetailViewController") as? WeatherDetailViewController else { return }
-            navi.cityTitle = locationLbl.text!
             self.navigationController?.pushViewController(navi, animated: true)
         }
     }
@@ -175,7 +171,6 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate {
         } else {
             let sb = UIStoryboard(name: "Air", bundle: nil)
             guard let navi = sb.instantiateViewController(withIdentifier: "AirDetailViewController") as? AirDetailViewController else { return }
-            navi.cityTitle = locationLbl.text!
             self.navigationController?.pushViewController(navi, animated: true)
         }
     }
@@ -380,6 +375,7 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate {
         let currentTempC = String(format: "%.0f", ad!.currentTemp)
         let currentTempF = String(format: "%.0f", (ad!.currentTemp+273.15))
         self.weatherTemperLbl.text = "\(currentTempC)℃/\(currentTempF)°F"
+        UserDefaults.standard.set(locationLbl.text!, forKey: "cityTitle")
     }
     
     //로케이션 세팅 + api
@@ -388,6 +384,7 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate {
             //위치 권한 체크 및 요청
             checkCoorLatitudeAndCoorLongitude(latitude: latitude, longitude: longitude, coorLatitude: coorLatitude, coorLongitude: coorLongitude) { (province, city) in
                 self.locationLbl.text = province + " " + city
+                UserDefaults.standard.set(self.locationLbl.text!, forKey: "cityTitle")
                 self.airAipGroup {
                     self.weatherAipGroup{
                         //날씨 배경 이미지 세팅
@@ -401,6 +398,7 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate {
             province = LocationDbManagerIsChecked?.first?.provinces ?? "서울특별시"
             city = LocationDbManagerIsChecked?.first?.city ?? "중구"
             self.locationLbl.text = province + " " + city
+            UserDefaults.standard.set(locationLbl.text!, forKey: "cityTitle")
             airAipGroup {
                 self.weatherAipGroup{
                     //날씨 배경 이미지 세팅
