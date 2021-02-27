@@ -19,7 +19,7 @@
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bbF-ZH-qLR">
-                        <rect key="frame" x="50" y="123.5" width="252" height="501"/>
+                        <rect key="frame" x="50" y="143.5" width="252" height="501"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="501" id="ceC-HQ-cz9"/>
                         </constraints>
@@ -75,13 +75,13 @@
                         </constraints>
                     </stackView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="날씨와 미세먼지 정보를 한눈에!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kqd-yJ-Dmd">
-                        <rect key="frame" x="65.5" y="60" width="221" height="21.5"/>
+                        <rect key="frame" x="65.5" y="80" width="221" height="21.5"/>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                         <color key="textColor" name="textColor555555"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="대기 정보를 체크하고 운동하세요." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W0s-0J-RVE">
-                        <rect key="frame" x="83.5" y="86.5" width="185" height="17"/>
+                        <rect key="frame" x="83.5" y="106.5" width="185" height="17"/>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                         <color key="textColor" name="textColor888888"/>
                         <nil key="highlightedColor"/>
@@ -99,7 +99,7 @@
                 <constraint firstAttribute="trailing" secondItem="UIZ-Mt-tc7" secondAttribute="trailing" constant="20" id="lNr-c7-brk"/>
                 <constraint firstAttribute="trailing" secondItem="bbF-ZH-qLR" secondAttribute="trailing" constant="50" id="o8g-V1-DXB"/>
                 <constraint firstItem="UIZ-Mt-tc7" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="20" id="rhe-Cc-pgp"/>
-                <constraint firstItem="kqd-yJ-Dmd" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="60" id="s4A-UJ-Wdj"/>
+                <constraint firstItem="kqd-yJ-Dmd" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="80" id="s4A-UJ-Wdj"/>
             </constraints>
             <size key="customSize" width="352" height="748"/>
             <connections>

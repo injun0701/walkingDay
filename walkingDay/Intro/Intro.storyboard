@@ -56,7 +56,7 @@
                                 <cells/>
                             </collectionView>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="TpA-mt-eu7">
-                                <rect key="frame" x="172" y="145" width="70" height="10"/>
+                                <rect key="frame" x="172" y="155" width="70" height="10"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZeL-vZ-5Pi">
                                         <rect key="frame" x="0.0" y="0.0" width="10" height="10"/>
@@ -121,7 +121,7 @@
                             <constraint firstItem="SJr-mG-Kxy" firstAttribute="trailing" secondItem="aPG-kY-qg5" secondAttribute="trailing" id="CIA-qa-BOp"/>
                             <constraint firstItem="SJr-mG-Kxy" firstAttribute="leading" secondItem="aPG-kY-qg5" secondAttribute="leading" id="Dje-4f-0Q1"/>
                             <constraint firstItem="SJr-mG-Kxy" firstAttribute="top" secondItem="5uT-Su-YgD" secondAttribute="top" id="Ow3-73-e3t"/>
-                            <constraint firstItem="TpA-mt-eu7" firstAttribute="top" secondItem="SJr-mG-Kxy" secondAttribute="bottom" constant="35" id="fV2-2m-hrS"/>
+                            <constraint firstItem="TpA-mt-eu7" firstAttribute="top" secondItem="SJr-mG-Kxy" secondAttribute="bottom" constant="45" id="fV2-2m-hrS"/>
                             <constraint firstItem="Xxt-Bn-w9I" firstAttribute="top" secondItem="SJr-mG-Kxy" secondAttribute="bottom" id="flD-Gl-Ibi"/>
                             <constraint firstItem="TpA-mt-eu7" firstAttribute="centerX" secondItem="aPG-kY-qg5" secondAttribute="centerX" id="hxO-vw-Lll"/>
                             <constraint firstItem="Xxt-Bn-w9I" firstAttribute="leading" secondItem="aPG-kY-qg5" secondAttribute="leading" id="mI1-CQ-2lN"/>
