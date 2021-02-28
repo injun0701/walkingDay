@@ -5,8 +5,6 @@
 //  Created by HongInJun on 2021/02/26.
 //
 
-import UIKit
-
 class WeatherDetailViewController: UIViewController {
     
     @IBOutlet var cityTitleLbl: UILabel!

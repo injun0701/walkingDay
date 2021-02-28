@@ -37,6 +37,8 @@
 		8467E32925E2A09D00EC6B4E /* LocationConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8467E32825E2A09D00EC6B4E /* LocationConfig.swift */; };
 		8476413725DFBC22004DFCA1 /* loadong01.gif in Resources */ = {isa = PBXBuildFile; fileRef = 8476413525DFBC22004DFCA1 /* loadong01.gif */; };
 		8476413C25DFD2AD004DFCA1 /* DeviceConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476413B25DFD2AD004DFCA1 /* DeviceConfig.swift */; };
+		8477BC4C25EB20600018C3C0 /* BannerDotCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8477BC4A25EB20600018C3C0 /* BannerDotCollectionViewCell.swift */; };
+		8477BC4D25EB20600018C3C0 /* BannerDotCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8477BC4B25EB20600018C3C0 /* BannerDotCollectionViewCell.xib */; };
 		8485F99E25DD8C7E0021F35A /* SwiftyGif in Frameworks */ = {isa = PBXBuildFile; productRef = 8485F99D25DD8C7E0021F35A /* SwiftyGif */; };
 		8485F9B525DDA7CE0021F35A /* sunMack@3x.gif in Resources */ = {isa = PBXBuildFile; fileRef = 8485F9AF25DDA7CD0021F35A /* sunMack@3x.gif */; };
 		8485F9B625DDA7CE0021F35A /* snow@3x.gif in Resources */ = {isa = PBXBuildFile; fileRef = 8485F9B025DDA7CD0021F35A /* snow@3x.gif */; };
@@ -122,6 +124,8 @@
 		8467E32825E2A09D00EC6B4E /* LocationConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationConfig.swift; sourceTree = "<group>"; };
 		8476413525DFBC22004DFCA1 /* loadong01.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = loadong01.gif; sourceTree = "<group>"; };
 		8476413B25DFD2AD004DFCA1 /* DeviceConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceConfig.swift; sourceTree = "<group>"; };
+		8477BC4A25EB20600018C3C0 /* BannerDotCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerDotCollectionViewCell.swift; sourceTree = "<group>"; };
+		8477BC4B25EB20600018C3C0 /* BannerDotCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BannerDotCollectionViewCell.xib; sourceTree = "<group>"; };
 		8485F9AF25DDA7CD0021F35A /* sunMack@3x.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "sunMack@3x.gif"; sourceTree = "<group>"; };
 		8485F9B025DDA7CD0021F35A /* snow@3x.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "snow@3x.gif"; sourceTree = "<group>"; };
 		8485F9B125DDA7CD0021F35A /* sun@3x.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "sun@3x.gif"; sourceTree = "<group>"; };
@@ -389,6 +393,8 @@
 				845EA94F25E8FC3A00ABBFF3 /* SingleBoxTableViewCell.xib */,
 				845E3C8425EA09A500EC64FC /* IntroCollectionViewCell.swift */,
 				845E3C8525EA09A500EC64FC /* IntroCollectionViewCell.xib */,
+				8477BC4A25EB20600018C3C0 /* BannerDotCollectionViewCell.swift */,
+				8477BC4B25EB20600018C3C0 /* BannerDotCollectionViewCell.xib */,
 			);
 			path = XIB;
 			sourceTree = "<group>";
@@ -493,6 +499,7 @@
 				84A6E43C25DA6B1400806DFF /* TodoInsertTableViewCell.xib in Resources */,
 				8485F9D125DDAA6F0021F35A /* rain@3x.gif in Resources */,
 				8435E8C625E0AD2D0012F1FB /* SingleTableViewCell.xib in Resources */,
+				8477BC4D25EB20600018C3C0 /* BannerDotCollectionViewCell.xib in Resources */,
 				8485F9B625DDA7CE0021F35A /* snow@3x.gif in Resources */,
 				84919AD225E735C5006FA80C /* dust02@3x.gif in Resources */,
 				8411458D25E3FEFF0053165F /* Location.storyboard in Resources */,
@@ -563,6 +570,7 @@
 				84EA839625E6491100C60294 /* AirApi.swift in Sources */,
 				8467E32925E2A09D00EC6B4E /* LocationConfig.swift in Sources */,
 				84A6E3EE25DA5ECA00806DFF /* SceneDelegate.swift in Sources */,
+				8477BC4C25EB20600018C3C0 /* BannerDotCollectionViewCell.swift in Sources */,
 				845E3C8125EA060E00EC64FC /* IntroViewController.swift in Sources */,
 				84A6E41925DA633700806DFF /* HomeViewController.swift in Sources */,
 				8411459025E3FF1F0053165F /* LocationListViewController.swift in Sources */,

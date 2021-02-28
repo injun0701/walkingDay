@@ -5,16 +5,11 @@
 //  Created by HongInJun on 2021/02/27.
 //
 
-import UIKit
-
 class IntroViewController: UIViewController {
 
+    @IBOutlet var bannerDotCollectionView: UICollectionView!
+    @IBOutlet var bannerDotCollectionViewWidth: NSLayoutConstraint!
     @IBOutlet var introCollectionView: UICollectionView!
-    
-    @IBOutlet var pageNum01: UIView!
-    @IBOutlet var pageNum02: UIView!
-    @IBOutlet var pageNum03: UIView!
-    @IBOutlet var pageNum04: UIView!
     
     //걸음 수 배열
     var intro : [IntroModel] = []
@@ -35,7 +30,6 @@ class IntroViewController: UIViewController {
             IntroModel(title: "걸음 수를 확인하고 10000걸음을 채워보세요!", content: "자세히 보기를 통해 상세정보를 확인할 수 있어요.", img: "intro02"),
             IntroModel(title: "위치를 저장하고 체크해보세요!", content: "해당 지역을 선택해서 대기 정보를 알 수 있어요.", img: "intro03"),
             IntroModel(title: "운동한 내용을 입력해보세요!", content: "달력을 선택하여 운동한 내용을 저장할 수 있어요.", img: "intro04")
-       
        ]
     }
     
@@ -46,6 +40,13 @@ class IntroViewController: UIViewController {
         introCollectionView.decelerationRate = .fast
         introCollectionView.isPagingEnabled = true
         introCollectionView.register(UINib(nibName: "IntroCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "IntroCollectionViewCell")
+        
+        bannerDotCollectionView.delegate = self
+        bannerDotCollectionView.dataSource = self
+        bannerDotCollectionView.register(UINib(nibName: "BannerDotCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "BannerDotCollectionViewCell")
+        let padding = 10
+        bannerDotCollectionViewWidth.constant = CGFloat(intro.count * 10 + (intro.count * padding))
+        view.layoutIfNeeded()
     }
  
     func introCollectionViewMoveToPrev() {
@@ -60,29 +61,6 @@ class IntroViewController: UIViewController {
         introCollectionView.scrollToItem(at: NSIndexPath(item: nowPage, section: 0) as IndexPath, at: .right, animated: true)
     }
     
-    func nowPageCheck() {
-        if nowPage == 0 {
-            pageNum01.backgroundColor = UIColor().mainColorOrange
-            pageNum02.backgroundColor = UIColor().colorEEEEEE
-            pageNum03.backgroundColor = UIColor().colorEEEEEE
-            pageNum04.backgroundColor = UIColor().colorEEEEEE
-        } else if nowPage == 1 {
-            pageNum01.backgroundColor = UIColor().colorEEEEEE
-            pageNum02.backgroundColor = UIColor().mainColorOrange
-            pageNum03.backgroundColor = UIColor().colorEEEEEE
-            pageNum04.backgroundColor = UIColor().colorEEEEEE
-        } else if nowPage == 2 {
-            pageNum01.backgroundColor = UIColor().colorEEEEEE
-            pageNum02.backgroundColor = UIColor().colorEEEEEE
-            pageNum03.backgroundColor = UIColor().mainColorOrange
-            pageNum04.backgroundColor = UIColor().colorEEEEEE
-        } else if nowPage == 3 {
-            pageNum01.backgroundColor = UIColor().colorEEEEEE
-            pageNum02.backgroundColor = UIColor().colorEEEEEE
-            pageNum03.backgroundColor = UIColor().colorEEEEEE
-            pageNum04.backgroundColor = UIColor().mainColorOrange
-        }
-    }
 }
 
 //MARK: 콜렉션뷰 구현
@@ -92,60 +70,81 @@ extension IntroViewController: UICollectionViewDataSource, UICollectionViewDeleg
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "IntroCollectionViewCell", for: indexPath) as? IntroCollectionViewCell else {
-            return UICollectionViewCell()
-        }
-        cell.titleLbl.text = intro[indexPath.row].title
-        cell.contentLbl.text = intro[indexPath.row].content
-        cell.ImgView.image = UIImage(named: "\(intro[indexPath.row].img)")
-        if indexPath.row == 0 {
-            cell.btn01.isHidden = true
-            //btn02TapHandler 작성
-            cell.btn02.setTitle("다음", for: UIControl.State.normal)
-            cell.btn02TapHandler = {
-                self.introCollectionViewMoveToNext()
-                self.nowPageCheck()
+        if collectionView == introCollectionView {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "IntroCollectionViewCell", for: indexPath) as? IntroCollectionViewCell else {
+                return UICollectionViewCell()
             }
-        } else if indexPath.row == intro.count-1 {
-            cell.btn01.isHidden = true
-            cell.btn02.setTitle("시작하기", for: UIControl.State.normal)
-            //btn02TapHandler 작성
-            cell.btn02TapHandler = {
-                self.dismiss(animated: true, completion: nil)
+            cell.titleLbl.text = intro[indexPath.row].title
+            cell.contentLbl.text = intro[indexPath.row].content
+            cell.ImgView.image = UIImage(named: "\(intro[indexPath.row].img)")
+            if indexPath.row == 0 {
+                cell.btn01.isHidden = true
+                //btn02TapHandler 작성
+                cell.btn02.setTitle("다음", for: UIControl.State.normal)
+                cell.btn02TapHandler = {
+                    self.introCollectionViewMoveToNext()
+                    self.bannerDotCollectionView.reloadData()
+                }
+            } else if indexPath.row == intro.count-1 {
+                cell.btn01.isHidden = true
+                cell.btn02.setTitle("시작하기", for: UIControl.State.normal)
+                //btn02TapHandler 작성
+                cell.btn02TapHandler = {
+                    self.dismiss(animated: true, completion: nil)
+                }
+            } else {
+                cell.btn01.isHidden = false
+                cell.btn02.setTitle("다음", for: UIControl.State.normal)
+                //btn01TapHandler 작성
+                cell.btn01TapHandler = {
+                    self.introCollectionViewMoveToPrev()
+                    self.bannerDotCollectionView.reloadData()
+                }
+                //btn02TapHandler 작성
+                cell.btn02TapHandler = {
+                    self.introCollectionViewMoveToNext()
+                    self.bannerDotCollectionView.reloadData()
+                }
             }
+            return cell
         } else {
-            cell.btn01.isHidden = false
-            cell.btn02.setTitle("다음", for: UIControl.State.normal)
-            //btn01TapHandler 작성
-            cell.btn01TapHandler = {
-                self.introCollectionViewMoveToPrev()
-                self.nowPageCheck()
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "BannerDotCollectionViewCell", for: indexPath) as? BannerDotCollectionViewCell else {
+                return UICollectionViewCell()
             }
-            //btn02TapHandler 작성
-            cell.btn02TapHandler = {
-                self.introCollectionViewMoveToNext()
-                self.nowPageCheck()
+            for i in 0..<intro.count {
+                if nowPage == i{
+                    if indexPath.row == nowPage {
+                        cell.dotView.backgroundColor = UIColor().mainColorOrange
+                    } else {
+                        cell.dotView.backgroundColor = UIColor().colorEEEEEE
+                    }
+                }
             }
+            return cell
         }
-        return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: UIScreen.main.bounds.width, height: collectionView.bounds.height)
+        if collectionView == introCollectionView {
+            return CGSize(width: UIScreen.main.bounds.width, height: collectionView.bounds.height)
+        } else {
+            return CGSize(width: 10, height: 10)
+        }
     }
     
     //컬렉션뷰 감속 끝났을 때 현재 페이지 체크
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
 //        nowPage = Int(scrollView.contentOffset.x) / Int(scrollView.frame.width)
-        for cell in introCollectionView.visibleCells {
-            if let row = introCollectionView.indexPath(for: cell)?.item {
-                print(row)
-                nowPage = row
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [self] in
+            for cell in introCollectionView.visibleCells {
+                if let row = introCollectionView.indexPath(for: cell)?.item {
+                    nowPage = row
+                    print(nowPage)
+                }
             }
+            bannerDotCollectionView.reloadData()
         }
-        nowPageCheck()
     }
-  
 }
 
 struct IntroModel {

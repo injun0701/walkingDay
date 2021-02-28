@@ -5,8 +5,6 @@
 //  Created by HongInJun on 2021/02/27.
 //
 
-import UIKit
-
 class SettingsDetailViewController: UIViewController {
 
     @IBAction func backBtnAction(_ sender: UIButton) {

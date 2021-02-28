@@ -5,8 +5,6 @@
 //  Created by HongInJun on 2021/02/25.
 //
 
-import UIKit
-
 class AirDetailViewController: UIViewController {
 
     @IBOutlet var cityTitleLbl: UILabel!
