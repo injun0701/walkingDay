@@ -34,6 +34,8 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate {
         LoadingHUD.show()
         //네트워크 체크
         selfCheckDeviceNetworkStatus()
+        //위치 권한 허용 체크
+        locationCheck()
         //로케이션 세팅 + 미세먼지 api
         loctionFuncGroupPlusAirAip()
 
@@ -59,7 +61,6 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate {
         }
         //걸음수 바 애니매이션 함수
         walkBarWightTransition()
-        locationCheck()
     }
     
     @IBAction func hambergerMenuBtnAction(_ sender: UIButton) {

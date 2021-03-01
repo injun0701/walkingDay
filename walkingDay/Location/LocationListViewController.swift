@@ -24,6 +24,8 @@ class LocationListViewController: UIViewController, CLLocationManagerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //위치 권한 허용 체크
+        locationCheck()
         tableViewSet()
     }
     
