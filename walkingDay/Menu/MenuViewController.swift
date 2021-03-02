@@ -40,7 +40,7 @@ class MenuViewController: UIViewController {
     let menuTitleWeather = "날씨 보기"
     let menuTitleAir = "미세먼지 보기"
     let menuTitleMemo = "메모로 가기"
-    let menuTitleSettings = "설정/가타 보기"
+    let menuTitleSettings = "설정/기타 보기"
     
     //테이블뷰 세팅
     func menuTableViewSet() {
