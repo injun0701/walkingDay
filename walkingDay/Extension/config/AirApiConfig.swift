@@ -25,7 +25,9 @@ extension UIViewController {
             province = "제주특별자치도"
         }
         
-        let provinceAndCity = province + " " + city
+        let cityPrefix = String(city.prefix(2))
+        
+        let provinceAndCity = province + " " + cityPrefix
         
         //url은 한글을 인코딩해야함
         let provinceAndCityEncoding = provinceAndCity.addingPercentEncoding(withAllowedCharacters: CharacterSet(charactersIn: "!*'();:@&=+$,/?%#[]{} ").inverted)
@@ -36,7 +38,7 @@ extension UIViewController {
             switch response.result {
             case .success(let value):
                 let json = JSON(value)
-//                print("JSON: \(json)")
+                print("JSON: \(json)")
                 
                 let resultTmX = json["list"][0]["tmX"].stringValue
                 let resultTmY = json["list"][0]["tmY"].stringValue
@@ -87,7 +89,7 @@ extension UIViewController {
             switch response.result {
             case .success(let value):
                 let json = JSON(value)
-//                print("JSON: \(json)")
+                print("JSON: \(json)")
                 
                 //pm10(미세먼지) 결과 1:좋음 2:보통 3:나쁨 4:매우나쁨
                 var pm10Grade = json["list"][0]["pm10Grade"].stringValue

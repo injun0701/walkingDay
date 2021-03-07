@@ -350,15 +350,20 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate {
     func loctionFuncGroup() {
         
         //위치 디비 isChecked 체크
-        LocationDbManagerIsChecked {
+        LocationDbManagerIsChecked { //id가 0이면(현재위치이면)
             //위치 권한 체크 및 요청
             checkCoorLatitudeAndCoorLongitude(latitude: latitude, longitude: longitude, coorLatitude: coorLatitude, coorLongitude: coorLongitude) { (province, city) in
                 self.textLblSet()
+                self.locationLbl.text = province + " " + city
+                UserDefaults.standard.set(self.locationLbl.text!, forKey: "cityTitle")
+                self.province = province
+                self.city = city
                 //날씨 배경 이미지 세팅
                 self.backgroundImgSet()
                 LoadingHUD.hide()
+                
             }
-        } action2: {
+        } action2: { //현재위치가 아니면
             let locationDbManagerIsChecked = LocationDbManager.shared.locationList()?.filter("isChecked == true")
             province = locationDbManagerIsChecked?.first?.provinces ?? "서울특별시"
             city = locationDbManagerIsChecked?.first?.city ?? "중구"
@@ -381,11 +386,13 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate {
     
     //로케이션 세팅 + api
     func loctionFuncGroupPlusAirAip() {
-        LocationDbManagerIsChecked {
+        LocationDbManagerIsChecked { //id가 0이면(현재위치이면)
             //위치 권한 체크 및 요청
             checkCoorLatitudeAndCoorLongitude(latitude: latitude, longitude: longitude, coorLatitude: coorLatitude, coorLongitude: coorLongitude) { (province, city) in
                 self.locationLbl.text = province + " " + city
                 UserDefaults.standard.set(self.locationLbl.text!, forKey: "cityTitle")
+                self.province = province
+                self.city = city
                 self.airAipGroup {
                     self.weatherAipGroup{
                         //날씨 배경 이미지 세팅
@@ -394,7 +401,7 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate {
                     }
                 }
             }
-        } action2: {
+        } action2: { //현재위치가 아니면
             let LocationDbManagerIsChecked = LocationDbManager.shared.locationList()?.filter("isChecked == true")
             province = LocationDbManagerIsChecked?.first?.provinces ?? "서울특별시"
             city = LocationDbManagerIsChecked?.first?.city ?? "중구"

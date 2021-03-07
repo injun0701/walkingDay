@@ -22,7 +22,7 @@ extension UIViewController {
             }
         }
         if province == "경기도" {
-            if city != "가평군" || city != "양평군" {
+            if city != "가평군" && city != "양평군" {
                 province = "경기"
             }
         }
@@ -48,7 +48,7 @@ extension UIViewController {
             province = "대전"
         }
         if province == "경상북도" {
-            if city != "영양군" || city != "청송군" || city != "예천군" || city != "봉화군" || city != "성주군" {
+            if city != "영양군" && city != "청송군" && city != "예천군" && city != "봉화군" && city != "성주군" {
                 province = "경북"
             }
         }
@@ -79,7 +79,7 @@ extension UIViewController {
             }
         }
         if province == "전라남도" {
-            if city != "담양군" || city != "고흥군" || city != "장흥군" || city != "강진군" || city != "해남군" || city != "무안군" || city != "함평군" || city != "완도군" || city != "진도군" {
+            if city != "담양군" && city != "고흥군" && city != "장흥군" && city != "강진군" && city != "해남군" && city != "무안군" && city != "함평군" && city != "완도군" && city != "진도군" {
                 province = "전남"
             }
         }
@@ -87,7 +87,9 @@ extension UIViewController {
             province = "제주"
         }
         
-        let provinceAndCity = province + " " + city
+        let cityPrefix = String(city.prefix(2))
+        
+        let provinceAndCity = province + " " + cityPrefix
         
         //url은 한글을 인코딩해야함
         let provinceAndCityEncoding = provinceAndCity.addingPercentEncoding(withAllowedCharacters: CharacterSet(charactersIn: "!*'();:@&=+$,/?%#[]{} ").inverted)
