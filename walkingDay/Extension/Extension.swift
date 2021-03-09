@@ -47,15 +47,14 @@ extension UIViewController {
             })
             alert.addAction(action)
             present(alert, animated: true, completion: nil)
-            
         }
     }
     //위치 권한 체크
-    @objc func locationCheck() {
+    @objc func locationCheck(after: @escaping () -> ()) {
         let status = CLLocationManager.authorizationStatus()
         
         if status == CLAuthorizationStatus.denied || status == CLAuthorizationStatus.restricted {
-            let alter = UIAlertController(title: "위치권한 설정이 '안함'으로 되어있습니다.", message: "앱 설정 화면으로 가시겠습니까? \n '아니오'를 선택하시면 앱이 종료됩니다.", preferredStyle: UIAlertController.Style.alert)
+            let alter = UIAlertController(title: "위치 권한 설정이 '허용 안 함'으로 되어있습니다.", message: "앱 설정 화면으로 가시겠습니까?", preferredStyle: UIAlertController.Style.alert)
             let logOkAction = UIAlertAction(title: "네", style: UIAlertAction.Style.default){
                 (action: UIAlertAction) in
                 if #available(iOS 10.0, *) {
@@ -63,10 +62,11 @@ extension UIViewController {
                 } else {
                     UIApplication.shared.openURL(NSURL(string: UIApplication.openSettingsURLString)! as URL)
                 }
+                after()
             }
             let logNoAction = UIAlertAction(title: "아니오", style: UIAlertAction.Style.destructive){
                 (action: UIAlertAction) in
-                exit(0)
+                after()
             }
             alter.addAction(logNoAction)
             alter.addAction(logOkAction)
@@ -257,77 +257,6 @@ extension UINavigationController {
         return previousViewController
     }
     
-}
-
-//MARK: CLLocationManagerDelegate extension
-extension CLLocationManagerDelegate {
-    //MARK: 현재 위치 구현
-    //위치 권한 체크 및 요청
-    func checkCoorLatitudeAndCoorLongitude(latitude:Double, longitude:Double, coorLatitude: Double, coorLongitude: Double, after: @escaping (_ province: String, _ city: String) -> ())  {
-        var latitudeCopy = latitude
-        var longitudeCopy = longitude
-        var coorLatitudeCopy = coorLatitude
-        var coorLongitudeCopy = coorLongitude
-        //위경도 둘 중 하나라도 0.0이면 함수 재실행
-        if coorLatitude == 0.0 || coorLongitude == 0.0  {
-            //위치 권한 버튼을 클릭해야지 다음 함수 실행
-            LocationManager.sharedInstance.runLocationBlock {
-                //insert location code here
-                self.callLocationManager(coorLatitude: &coorLatitudeCopy, coorLongitude: &coorLongitudeCopy) {coorLatitude, coorLongitude in
-                    //위치 경도 추출
-                    var coorLatitudeCopy = coorLatitude
-                    var coorLongitudeCopy = coorLongitude
-                    self.currentLocation(latitude: &latitudeCopy, longitude: &longitudeCopy, coorLatitude: &coorLatitudeCopy, coorLongitude: &coorLongitudeCopy) {province, city in
-                        after(province, city)
-                    }
-                }
-            }
-        }
-    }
-    
-    //위치 불러오는 함수
-    func callLocationManager(coorLatitude: inout Double, coorLongitude: inout Double, after: @escaping (_ coorLatitude: Double, _ coorLongitude: Double) -> ()) {
-        let locationManager = CLLocationManager()
-    
-        if CLLocationManager.locationServicesEnabled() {
-            locationManager.delegate = self
-            //배터리에 맞게 권장되는 최적의 정확도
-            //locationManager.desiredAccuracy = kCLLocationAccuracyBest
-            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
-            //위치 업데이트
-            locationManager.startUpdatingLocation()
-        }
-        
-        let coor = locationManager.location?.coordinate
-        
-        coorLatitude = coor?.latitude ?? 0
-        coorLongitude = coor?.longitude ?? 0
-        after(coorLatitude, coorLongitude)
-    }
-    
-    //위치 경도 추출
-    func currentLocation(latitude: inout Double, longitude: inout Double,coorLatitude: inout Double, coorLongitude: inout Double, after: @escaping (_ province: String, _ city: String) -> ()) {
-        //위,경도 가져오기
-        latitude = coorLatitude
-        longitude = coorLongitude
-        
-        let findLocation = CLLocation(latitude: latitude, longitude: longitude)
-        let geocoder = CLGeocoder()
-        //나라 언어 코드
-        let locale = Locale(identifier: "Ko-kr")
-        geocoder.reverseGeocodeLocation(findLocation, preferredLocale: locale, completionHandler: {(
-            placemarks, error) in
-            if let address: [CLPlacemark] = placemarks {
-                //address.last?.thoroughfare 00동 or 도로명 //.subLocality 00동 //.stringWithoutDigit 구 //.subThoroughfare 지번 //.locality 00시 //.administrativeArea 00도 //.country 대한민국
-                if let name: String = address.last?.administrativeArea, let name2: String = address.last?.locality{
-                    //숫자제거
-                    let province = name.components(separatedBy: ["0","1","2","3","4","5","6","7","8","9"]).joined()
-                    let city = name2.components(separatedBy: ["0","1","2","3","4","5","6","7","8","9"]).joined()
-                    after(province, city)
-                } //전체 주소
-            }
-        })
-    }
 }
 
 //MARK: 유아이라벨 extension

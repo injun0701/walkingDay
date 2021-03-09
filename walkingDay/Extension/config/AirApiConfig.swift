@@ -11,7 +11,7 @@ import SwiftyJSON
 extension UIViewController {
     
     //MARK: 측정소 위치 api
-    func measuringStationApi(apiKey:String, province: String, city: String, after: @escaping (_ resultDmX: String, _ resultDmY: String) -> ()) {
+    func measuringStationApi(apiKey:String, province: String, city: String, after: @escaping (_ resultDmX: String, _ resultDmY: String) -> (), after2: @escaping () -> ()) {
         
         var province = province
         var city = city
@@ -45,6 +45,7 @@ extension UIViewController {
                 after(resultTmX, resultTmY)
                 
             case .failure(let error):
+                after2()
                 print(error)
             }
         }

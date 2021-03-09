@@ -31,11 +31,14 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate {
     @IBOutlet var walkCollectionView: UICollectionView!
     
     @IBAction func reloadBtnAction(_ sender: UIButton) {
-        LoadingHUD.show()
+        reload()
+    }
+    
+    func reload() {
         //네트워크 체크
         selfCheckDeviceNetworkStatus()
         //위치 권한 허용 체크
-        locationCheck()
+        locationCheck {}
         //로케이션 세팅 + 미세먼지 api
         loctionFuncGroupPlusAirAip()
 
@@ -120,6 +123,10 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate {
     var province = "서울특별시"
     var city = "중구"
     
+    //날씨 온도 초기값
+    var currentTempC = ""
+    var currentTempF = ""
+    
     //api 소스
     let apiKey = "tHdaFkeZaI9Bkc1GCSnDqZ76KjZQGbNNh4kX38IzDT2GmbD3McHV%2BzZV5%2F5ygds3p%2BVZ3rOtvxHCJcoCAzlmTg%3D%3D"
     
@@ -128,6 +135,8 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate {
         super.viewDidLoad()
         //디자인 세팅
         DesignSet()
+        //배경 세팅
+        backgroundImgSet()
         //컬랙션뷰 데이터 세팅
         walkCollectionViewData()
         //컬랙션뷰 세팅
@@ -201,6 +210,8 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate {
                     action()
                 }
             }
+        } after2: {
+            self.showAlertBtn1(title: "서버 통신 오류", message: "날씨 및 미세먼지 데이터를 불러올 수 없습니다.", btnTitle: "확인") {}
         }
     }
     
@@ -213,17 +224,22 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate {
             self.weatherApi(resultDmX: resultDmX, resultDmY: resultDmY) { [self] weather,currentTemp,feelsLikeTemp,humidityText,windText  in
                     
                 weatherLbl.text = weather
-                let currentTempC = String(format: "%.0f", ad!.currentTemp)
-                let currentTempF = String(format: "%.0f", (ad!.currentTemp+273.15))
+                if ad!.currentTemp != "" {
+                    let currentTempToDouble = Double(ad!.currentTemp) ?? 0.0
+                    currentTempC = String(format: "%.0f", currentTempToDouble+0)
+                    currentTempF = String(format: "%.0f", (currentTempToDouble+273.15))
+                }
                 weatherTemperLbl.text = "\(currentTempC)℃/\(currentTempF)°F"
                 ad?.weather = weather
-                ad?.currentTemp = currentTemp
+                ad?.currentTemp = String(currentTemp)
                 ad?.feelsLikeTemp = feelsLikeTemp
                 ad?.humidityText = humidityText
                 ad?.windText = windText
                 action()
             }
             
+        } after2: {
+            self.showAlertBtn1(title: "서버 통신 오류", message: "날씨 데이터를 불러올 수 없습니다.", btnTitle: "확인") {}
         }
     }
     
@@ -260,6 +276,10 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate {
                 weatherDetailLbl.text = "우산 꼭 챙기세요!"
                 backgroundView.backgroundColor = UIColor().sub01Colorblue
             }
+        } else if ad?.weather == "" {
+            homeGifSet(gifName: "sun@3x.gif")
+            weatherDetailLblText(text: "서버 통신 오류로 날씨 및 미세먼지  데이터를 불러올 수 없습니다.")
+            backgroundView.backgroundColor = UIColor().colorEEEEEE
         } else {
             if ad?.pm10Grade == "나쁨" || ad?.pm10Grade == "매우 나쁨" {
                 homeGifSet(gifName: "sunMask@3x.gif")
@@ -378,8 +398,11 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate {
         self.locationLbl.text = province + " " + city
         self.airValueLbl.text = ad?.pm10Grade
         self.weatherLbl.text = ad?.weather
-        let currentTempC = String(format: "%.0f", ad!.currentTemp)
-        let currentTempF = String(format: "%.0f", (ad!.currentTemp+273.15))
+        if ad!.currentTemp != "" {
+            let currentTempToDouble = Double(ad!.currentTemp) ?? 0.0
+            currentTempC = String(format: "%.0f", currentTempToDouble+0)
+            currentTempF = String(format: "%.0f", (currentTempToDouble+273.15))
+        }
         self.weatherTemperLbl.text = "\(currentTempC)℃/\(currentTempF)°F"
         UserDefaults.standard.set(locationLbl.text!, forKey: "cityTitle")
     }

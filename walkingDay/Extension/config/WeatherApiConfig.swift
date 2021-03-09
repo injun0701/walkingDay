@@ -11,7 +11,7 @@ import SwiftyJSON
 extension UIViewController {
     
     //MARK: 측정소 위치 api
-    func weatherLoationApi(apiKey:String, province: String, city: String, after: @escaping (_ resultDmX: String, _ resultDmY: String) -> ()) {
+    func weatherLoationApi(apiKey:String, province: String, city: String, after: @escaping (_ resultDmX: String, _ resultDmY: String) -> (), after2: @escaping () -> ()) {
         
         var province = province
         let city = city
@@ -95,7 +95,7 @@ extension UIViewController {
         let provinceAndCityEncoding = provinceAndCity.addingPercentEncoding(withAllowedCharacters: CharacterSet(charactersIn: "!*'();:@&=+$,/?%#[]{} ").inverted)
         let url = "http://openapi.airkorea.or.kr/openapi/services/rest/MsrstnInfoInqireSvc/getMsrstnList?&addr=\(provinceAndCityEncoding!)&pageNo=1&numOfRows=10&ServiceKey=\(apiKey)&_returnType=json"
         
-        //미세먼지 api
+        //날씨 api
         AF.request(url, method: .get).validate().responseJSON { response in
             switch response.result {
             case .success(let value):
@@ -107,6 +107,7 @@ extension UIViewController {
                 after(resultDmX, resultDmY)
                 
             case .failure(let error):
+                after2()
                 print(error)
             }
         }

@@ -90,7 +90,7 @@ extension IntroViewController: UICollectionViewDataSource, UICollectionViewDeleg
                 cell.btn02.setTitle("시작하기", for: UIControl.State.normal)
                 //btn02TapHandler 작성
                 cell.btn02TapHandler = {
-                    self.dismiss(animated: true, completion: nil)
+                    self.navigationController?.popToRootViewController(animated: false)
                 }
             } else {
                 cell.btn01.isHidden = false

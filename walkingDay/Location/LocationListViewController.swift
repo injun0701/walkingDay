@@ -25,7 +25,9 @@ class LocationListViewController: UIViewController, CLLocationManagerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         //위치 권한 허용 체크
-        locationCheck()
+        locationCheck {
+            LoadingHUD.hide()
+        }
         tableViewSet()
     }
     
@@ -33,7 +35,7 @@ class LocationListViewController: UIViewController, CLLocationManagerDelegate {
         checkCoorLatitudeAndCoorLongitude(latitude: latitude, longitude: longitude, coorLatitude: coorLatitude, coorLongitude: coorLongitude) { (province, city) in
             self.currentLocationValue = province + " " + city
             action()
-        }
+        } 
     }
     
     //테이블뷰 세팅
@@ -81,10 +83,8 @@ extension LocationListViewController: UITableViewDelegate, UITableViewDataSource
             
             cell.titleLbl.text = cellList.provinces
             if indexPath.row == 0 {
-                LoadingHUD.show()
                 locationSet {
                     cell.contentLbl.text = self.currentLocationValue
-                    LoadingHUD.hide()
                 }
                 cell.deleteBtn.isHidden = true
             } else {

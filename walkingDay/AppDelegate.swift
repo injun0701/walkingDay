@@ -27,7 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var so2Value = ""
     
     var weather = ""
-    var currentTemp = 0.0
+    var currentTemp = ""
     var feelsLikeTemp = 0.0
     var humidityText = ""
     var windText = ""

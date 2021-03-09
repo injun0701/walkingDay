@@ -28,8 +28,8 @@ class StartViewController: UIViewController, CLLocationManagerDelegate {
     var coorLongitude = 0.0
     
     //지역 위치값
-    var province = "서울특별시"
-    var city = "중구"
+    var province = "위치"
+    var city = ""
     
     //api 소스
     let apiKey = "tHdaFkeZaI9Bkc1GCSnDqZ76KjZQGbNNh4kX38IzDT2GmbD3McHV%2BzZV5%2F5ygds3p%2BVZ3rOtvxHCJcoCAzlmTg%3D%3D"
@@ -38,6 +38,10 @@ class StartViewController: UIViewController, CLLocationManagerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         designSet()
+        //앱이 처음으로 시작하면 현재위치 레코드 추가
+        currentLocationListCheck()
+        //네트워크 체크
+        selfCheckDeviceNetworkStatus()
     }
     
     func designSet() {
@@ -54,11 +58,6 @@ class StartViewController: UIViewController, CLLocationManagerDelegate {
         
         view.sendSubviewToBack(bgView)
         lodingGifSet(gifName: "loadong01.gif")
-        //앱이 처음으로 시작하면 현재위치 레코드 추가
-        currentLocationListCheck()
-        //네트워크 체크
-        selfCheckDeviceNetworkStatus()
-        
     }
     
     //로딩 이미지 세팅
@@ -77,11 +76,8 @@ class StartViewController: UIViewController, CLLocationManagerDelegate {
     
     func toIntroPage() {
         let sb = UIStoryboard(name: "Intro", bundle: nil)
-        let vc = sb.instantiateViewController(withIdentifier: "IntroViewController") as! IntroViewController
-        //옵션 FullScreen
-        vc.modalPresentationStyle = .fullScreen
-        vc.modalTransitionStyle = .crossDissolve
-        present(vc, animated: true, completion: nil)
+        let navi = sb.instantiateViewController(withIdentifier: "IntroViewController") as! IntroViewController
+        navigationController?.pushViewController(navi, animated: false)
     }
     
     //MARK: 미세먼지 api 그룹
@@ -108,6 +104,10 @@ class StartViewController: UIViewController, CLLocationManagerDelegate {
                     action()
                 }
             }
+        } after2: {
+            self.showAlertBtn1(title: "서버 통신 오류", message: "날씨 및 미세먼지 데이터를 불러올 수 없습니다.", btnTitle: "확인") {
+                self.toHomeViewCon()
+            }
         }
     }
     
@@ -120,20 +120,22 @@ class StartViewController: UIViewController, CLLocationManagerDelegate {
             self.weatherApi(resultDmX: resultDmX, resultDmY: resultDmY) { [self] weather,currentTemp,feelsLikeTemp,humidityText,windText  in
                     
                 ad?.weather = weather
-                ad?.currentTemp = currentTemp
+                ad?.currentTemp = String(currentTemp)
                 ad?.feelsLikeTemp = feelsLikeTemp
                 ad?.humidityText = humidityText
                 ad?.windText = windText
                 action()
             }
             
+        } after2: {
+            self.showAlertBtn1(title: "서버 통신 오류", message: "날씨 데이터를 불러올 수 없습니다.", btnTitle: "확인") {
+                self.toHomeViewCon()
+            }
         }
     }
     
-    //MARK: viewDidAppear
-    override func viewDidAppear(_ animated: Bool) {
-//        toHomeViewCon()
-        
+    //MARK: viewWillAppear
+    override func viewWillAppear(_ animated: Bool) {
         //위치 디비 isChecked 체크
         LocationDbManagerIsChecked {
             //위치 권한 체크 및 요청
@@ -158,33 +160,41 @@ class StartViewController: UIViewController, CLLocationManagerDelegate {
         }
     }
     
-    func toHomeViewCon() {
-        //딜레이
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-            //네이게이션 페이지로 이동
-            let sb = UIStoryboard(name: "Home", bundle: nil)
-            let vc = sb.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
-            //옵션 FullScreen
-            let nav = UINavigationController(rootViewController: vc)
-            nav.isNavigationBarHidden = true
-            nav.modalPresentationStyle = .fullScreen
-            nav.modalTransitionStyle = .crossDissolve
-            vc.province = self.province
-            vc.city = self.city
-            self.getSteps(healthStore: self.healthStore) { (result) in
-                vc.stepCountVelueDayBefore = result
-            } stepCountVelueTwoDaysAgo: { (result) in
-                vc.stepCountVelueTwoDaysAgo = result
-            } stepCountVelueThreeDaysAgo: { (result) in
-                vc.stepCountVelueThreeDaysAgo = result
-            } stepCountVelueFourDaysAgo: { (result) in
-                vc.stepCountVelueFourDaysAgo = result
-            } stepCountVelueFiveDaysAgo: { (result) in
-                vc.stepCountVelueFiveDaysAgo = result
-            } stepCountVelueSixDaysAgo: { (result) in
-                vc.stepCountVelueSixDaysAgo = result
-                self.present(nav, animated: true, completion: nil)
+    //MARK: viewDidAppear
+    override func viewDidAppear(_ animated: Bool) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            self.locationCheck {
+                self.showAlertBtn1(title: "서버 통신 오류", message: "현재 위치, 날씨 등의 데이터를 불러올 수 없습니다.", btnTitle: "확인") {
+                    self.toHomeViewCon()
+                }
             }
+        }
+    }
+    
+    func toHomeViewCon() {
+        //네이게이션 페이지로 이동
+        let sb = UIStoryboard(name: "Home", bundle: nil)
+        let vc = sb.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
+        //옵션 FullScreen
+        let nav = UINavigationController(rootViewController: vc)
+        nav.isNavigationBarHidden = true
+        nav.modalPresentationStyle = .fullScreen
+        nav.modalTransitionStyle = .crossDissolve
+        vc.province = self.province
+        vc.city = self.city
+        self.getSteps(healthStore: self.healthStore) { (result) in
+            vc.stepCountVelueDayBefore = result
+        } stepCountVelueTwoDaysAgo: { (result) in
+            vc.stepCountVelueTwoDaysAgo = result
+        } stepCountVelueThreeDaysAgo: { (result) in
+            vc.stepCountVelueThreeDaysAgo = result
+        } stepCountVelueFourDaysAgo: { (result) in
+            vc.stepCountVelueFourDaysAgo = result
+        } stepCountVelueFiveDaysAgo: { (result) in
+            vc.stepCountVelueFiveDaysAgo = result
+        } stepCountVelueSixDaysAgo: { (result) in
+            vc.stepCountVelueSixDaysAgo = result
+            self.present(nav, animated: true, completion: nil)
         }
     }
 }
