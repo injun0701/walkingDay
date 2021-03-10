@@ -114,7 +114,7 @@ extension UIViewController {
     }
     
     //MARK: 측정소찾기 api
-    func weatherApi(resultDmX: String, resultDmY: String, after: @escaping (_ weather: String,_ currentTemp: Double,_ feelsLikeTemp: Double,_ humidityText: String,_ windText:String) -> ()) {
+    func weatherApi(resultDmX: String, resultDmY: String, after: @escaping (_ weather: String,_ currentTemp: Double,_ feelsLikeTemp: Double,_ humidityText: String,_ windText:String) -> (), after2: @escaping () -> ()) {
      
         let resultDmX = resultDmX
         let resultDmY = resultDmY
@@ -154,6 +154,7 @@ extension UIViewController {
                 after(weather,currentTemp,feelsLikeTemp,humidityText,windText)
                 
             case .failure(let error):
+                after2()
                 print(error)
             }
         }

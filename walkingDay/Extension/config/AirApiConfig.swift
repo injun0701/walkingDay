@@ -52,7 +52,7 @@ extension UIViewController {
     }
     
     //MARK: 측정소찾기 api
-    func searchMeasuringStationApi(apiKey:String, resultTmX: String, resultTmY: String, after: @escaping (_ stationName: String) -> ()) {
+    func searchMeasuringStationApi(apiKey:String, resultTmX: String, resultTmY: String, after: @escaping (_ stationName: String) -> (), after2: @escaping () -> ()) {
      
         let resultTmX = resultTmX
         let resultTmY = resultTmY
@@ -71,6 +71,7 @@ extension UIViewController {
              
                 
             case .failure(let error):
+                after2()
                 print(error)
             }
         }

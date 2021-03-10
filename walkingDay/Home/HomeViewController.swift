@@ -41,26 +41,27 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate {
         locationCheck {}
         //로케이션 세팅 + 미세먼지 api
         loctionFuncGroupPlusAirAip()
-
-        //healthStore에서 걸음수 가져오기
-        getTodaySteps(healthStore: self.healthStore) { (result) in
-            self.todayWalkCountVelue = "\(result)"
-            self.walkCountLbl.text = "\(result)"
-        }
-        getSteps(healthStore: healthStore) { (result) in
-            self.stepCountVelueDayBefore = result
-        } stepCountVelueTwoDaysAgo: { (result) in
-            self.stepCountVelueTwoDaysAgo = result
-        } stepCountVelueThreeDaysAgo: { (result) in
-            self.stepCountVelueThreeDaysAgo = result
-        } stepCountVelueFourDaysAgo: { (result) in
-            self.stepCountVelueFourDaysAgo = result
-        } stepCountVelueFiveDaysAgo: { (result) in
-            self.stepCountVelueFiveDaysAgo = result
-        } stepCountVelueSixDaysAgo: { (result) in
-            self.stepCountVelueSixDaysAgo = result
-            self.walkCollectionViewData()
-            self.walkCollectionView.reloadData()
+        if HKHealthStore.isHealthDataAvailable() {
+            //healthStore에서 걸음수 가져오기
+            getTodaySteps(healthStore: self.healthStore) { (result) in
+                self.todayWalkCountVelue = "\(result)"
+                self.walkCountLbl.text = "\(result)"
+            }
+            getSteps(healthStore: healthStore) { (result) in
+                self.stepCountVelueDayBefore = result
+            } stepCountVelueTwoDaysAgo: { (result) in
+                self.stepCountVelueTwoDaysAgo = result
+            } stepCountVelueThreeDaysAgo: { (result) in
+                self.stepCountVelueThreeDaysAgo = result
+            } stepCountVelueFourDaysAgo: { (result) in
+                self.stepCountVelueFourDaysAgo = result
+            } stepCountVelueFiveDaysAgo: { (result) in
+                self.stepCountVelueFiveDaysAgo = result
+            } stepCountVelueSixDaysAgo: { (result) in
+                self.stepCountVelueSixDaysAgo = result
+                self.walkCollectionViewData()
+                self.walkCollectionView.reloadData()
+            }
         }
         //걸음수 바 애니매이션 함수
         walkBarWightTransition()
@@ -209,6 +210,8 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate {
                     ad?.so2Value = so2Value
                     action()
                 }
+            } after2: {
+                self.showAlertBtn1(title: "서버 통신 오류", message: "날씨 및 미세먼지 데이터를 불러올 수 없습니다.", btnTitle: "확인") {}
             }
         } after2: {
             self.showAlertBtn1(title: "서버 통신 오류", message: "날씨 및 미세먼지 데이터를 불러올 수 없습니다.", btnTitle: "확인") {}
@@ -236,8 +239,9 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate {
                 ad?.humidityText = humidityText
                 ad?.windText = windText
                 action()
+            } after2: {
+                self.showAlertBtn1(title: "서버 통신 오류", message: "날씨 데이터를 불러올 수 없습니다.", btnTitle: "확인") {}
             }
-            
         } after2: {
             self.showAlertBtn1(title: "서버 통신 오류", message: "날씨 데이터를 불러올 수 없습니다.", btnTitle: "확인") {}
         }

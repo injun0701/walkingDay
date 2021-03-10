@@ -103,6 +103,8 @@ class StartViewController: UIViewController, CLLocationManagerDelegate {
                     ad?.so2Value = so2Value
                     action()
                 }
+            } after2: {
+                self.showAlertBtn1(title: "서버 통신 오류", message: "날씨 및 미세먼지 데이터를 불러올 수 없습니다.", btnTitle: "확인") {}
             }
         } after2: {
             self.showAlertBtn1(title: "서버 통신 오류", message: "날씨 및 미세먼지 데이터를 불러올 수 없습니다.", btnTitle: "확인") {
@@ -125,8 +127,11 @@ class StartViewController: UIViewController, CLLocationManagerDelegate {
                 ad?.humidityText = humidityText
                 ad?.windText = windText
                 action()
+            } after2: {
+                self.showAlertBtn1(title: "서버 통신 오류", message: "날씨 데이터를 불러올 수 없습니다.", btnTitle: "확인") {
+                    self.toHomeViewCon()
+                }
             }
-            
         } after2: {
             self.showAlertBtn1(title: "서버 통신 오류", message: "날씨 데이터를 불러올 수 없습니다.", btnTitle: "확인") {
                 self.toHomeViewCon()
@@ -182,19 +187,23 @@ class StartViewController: UIViewController, CLLocationManagerDelegate {
         nav.modalTransitionStyle = .crossDissolve
         vc.province = self.province
         vc.city = self.city
-        self.getSteps(healthStore: self.healthStore) { (result) in
-            vc.stepCountVelueDayBefore = result
-        } stepCountVelueTwoDaysAgo: { (result) in
-            vc.stepCountVelueTwoDaysAgo = result
-        } stepCountVelueThreeDaysAgo: { (result) in
-            vc.stepCountVelueThreeDaysAgo = result
-        } stepCountVelueFourDaysAgo: { (result) in
-            vc.stepCountVelueFourDaysAgo = result
-        } stepCountVelueFiveDaysAgo: { (result) in
-            vc.stepCountVelueFiveDaysAgo = result
-        } stepCountVelueSixDaysAgo: { (result) in
-            vc.stepCountVelueSixDaysAgo = result
-            self.present(nav, animated: true, completion: nil)
+        if HKHealthStore.isHealthDataAvailable() {
+            self.getSteps(healthStore: self.healthStore) { (result) in
+                vc.stepCountVelueDayBefore = result
+            } stepCountVelueTwoDaysAgo: { (result) in
+                vc.stepCountVelueTwoDaysAgo = result
+            } stepCountVelueThreeDaysAgo: { (result) in
+                vc.stepCountVelueThreeDaysAgo = result
+            } stepCountVelueFourDaysAgo: { (result) in
+                vc.stepCountVelueFourDaysAgo = result
+            } stepCountVelueFiveDaysAgo: { (result) in
+                vc.stepCountVelueFiveDaysAgo = result
+            } stepCountVelueSixDaysAgo: { (result) in
+                vc.stepCountVelueSixDaysAgo = result
+                self.present(nav, animated: true, completion: nil)
+            }
+        } else {
+            present(nav, animated: true, completion: nil)
         }
     }
 }
