@@ -63,7 +63,8 @@ class WeatherDetailViewController: UIViewController {
     //테이블뷰 데이터 세팅
     func weatherTableViewData() {
         let ad = UIApplication.shared.delegate as? AppDelegate
-        let tempText = String(format: "%.0f", ad!.currentTemp)+"℃(체감온도:"+String(format: "%.0f", ad!.feelsLikeTemp)+"℃)"
+        let currentTempToDouble = Double(ad!.currentTemp) ?? 0.0
+        let tempText = String(format: "%.0f", currentTempToDouble)+"℃(체감온도:"+String(format: "%.0f", ad!.feelsLikeTemp)+"℃)"
         let humidityText = "\(ad!.humidityText)% 습도"
         let windText = ad!.windText+"m/s의 바람"
         weather = [
