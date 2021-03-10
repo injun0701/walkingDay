@@ -145,10 +145,10 @@ extension UIViewController {
                 let feelsLikeTemp = json["main"]["feels_like"].doubleValue - 273.15
                 
                 let humidity = json["main"]["humidity"].doubleValue
-                let humidityText = "\(humidity)% 습도"
+                let humidityText = "\(humidity)"
                 
                 let wind = json["wind"]["speed"].doubleValue
-                let windText = "\(round(wind * 100) / 100)m/s의 바람"
+                let windText = "\(round(wind * 100) / 100)"
                 
                 
                 after(weather,currentTemp,feelsLikeTemp,humidityText,windText)
