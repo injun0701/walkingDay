@@ -118,36 +118,14 @@ extension UIViewController {
                 //so2(이산황) 값
                 var so2Value = json["list"][0]["so2Value"].stringValue
                 
-                if pm10Grade == "1" || pm25Grade == "1" || no2Grade == "1" || o3Grade == "1" || coGrade == "1" || so2Grade == "1" {
-                    pm10Grade = "좋음"
-                    pm25Grade = "좋음"
-                    no2Grade = "좋음"
-                    o3Grade = "좋음"
-                    coGrade = "좋음"
-                    so2Grade = "좋음"
-                    
-                } else if pm10Grade == "2" || pm25Grade == "2" || no2Grade == "2" || o3Grade == "2" || coGrade == "2" || so2Grade == "2" {
-                    pm10Grade = "보통"
-                    pm25Grade = "보통"
-                    no2Grade = "보통"
-                    o3Grade = "보통"
-                    coGrade = "보통"
-                    so2Grade = "보통"
-                } else if pm10Grade == "3" || pm25Grade == "3" || no2Grade == "3" || o3Grade == "3" || coGrade == "3" || so2Grade == "3" {
-                    pm10Grade = "나쁨"
-                    pm25Grade = "나쁨"
-                    no2Grade = "나쁨"
-                    o3Grade = "나쁨"
-                    coGrade = "나쁨"
-                    so2Grade = "나쁨"
-                } else if pm10Grade == "4" || pm25Grade == "4" || no2Grade == "4" || o3Grade == "4" || coGrade == "4" || so2Grade == "4" {
-                    pm10Grade = "매우 나쁨"
-                    pm25Grade = "매우 나쁨"
-                    no2Grade = "매우 나쁨"
-                    o3Grade = "매우 나쁨"
-                    coGrade = "매우 나쁨"
-                    so2Grade = "매우 나쁨"
-                }
+                pm10Grade = self.airGradeCal(pm10Grade)
+                pm25Grade = self.airGradeCal(pm25Grade)
+                no2Grade = self.airGradeCal(no2Grade)
+                o3Grade = self.airGradeCal(o3Grade)
+                coGrade = self.airGradeCal(coGrade)
+                so2Grade = self.airGradeCal(so2Grade)
+                
+                print("pm10Grade:\(pm10Grade), pm25Grade:\(pm25Grade), no2Grade:\(no2Grade), o3Grade:\(o3Grade), coGrade:\(coGrade), so2Grade:\(so2Grade)")
                 
                 pm10Value = pm10Value + "㎍/m³"
                 pm25Value = pm25Value + "㎍/m³"
@@ -162,5 +140,18 @@ extension UIViewController {
                 print(error)
             }
         }
+    }
+    
+    func airGradeCal(_ grade : String) -> String {
+        if grade == "1" {
+            return "좋음"
+        } else if grade == "2"{
+            return "보통"
+        } else if grade == "3"{
+            return "나쁨"
+        } else if grade == "4"{
+            return "매우 나쁨"
+        }
+        return ""
     }
 }
