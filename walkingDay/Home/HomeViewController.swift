@@ -251,7 +251,7 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate {
     func backgroundImgSet() {
         if ad?.weather == "맑음" {
             if ad?.pm10Grade == "나쁨" || ad?.pm10Grade == "매우 나쁨" {
-                homeGifSet(gifName: "sunMack@3x.gif")
+                homeGifSet(gifName: "sunMask@3x.gif")
                 weatherDetailLblText(text: "오늘 날씨는 맑은데 미세먼지가 있네요.  마스크 챙기세요!")
                 backgroundView.backgroundColor = UIColor().colorEEEEEE
             } else {
