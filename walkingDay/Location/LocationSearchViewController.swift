@@ -19,11 +19,13 @@ class LocationSearchViewController: UIViewController {
     
     @IBAction func saveBtnAction(_ sender: UIButton) {
         let locationCityFilter = LocationDbManager.shared.locationList()?.filter("city == '\(cityValue)'")
-        //Todo, TodoDate 생성 밑 업데이트
+        let locationProvincesFilter = LocationDbManager.shared.locationList()?.filter("provinces == '\(provincesValue)'")
+        let locationProvincesFilterOptional = locationProvincesFilter?.first?.provinces ?? ""
+        //도시 중복 확인 및 처리 함수
         if tableSection == 0 { //섹션0
-            if cityValue == contentText {
+            if cityValue == contentText && provincesValue == titleText{
                 navigationController?.popViewController(animated: true)
-            } else if locationCityFilter?.first?.city != cityValue {
+            } else if locationCityFilter?.first?.city != cityValue || locationProvincesFilterOptional != provincesValue {
                 //메모 수정
                 LocationDbManager.shared.locationListUpdate(LocationListIndexPathRow: cellIndex, provinces: provincesValue, city: cityValue)
                 navigationController?.popViewController(animated: true)
@@ -31,7 +33,7 @@ class LocationSearchViewController: UIViewController {
                 showAlertBtn1(title: "리스트 저장 오류", message: "이미 같은 지역 리스트가 존재합니다.", btnTitle: "확인") {}
             }
         } else { //섹션1
-            if locationCityFilter?.first?.city != cityValue {
+            if locationCityFilter?.first?.city != cityValue || locationProvincesFilterOptional != provincesValue {
                 //메모 생성
                 LocationDbManager.shared.locationListInsert(provinces: provincesValue, city: cityValue, isChecked: false)
                 navigationController?.popViewController(animated: true)
@@ -101,7 +103,12 @@ class LocationSearchViewController: UIViewController {
         
         let str =  searchTf.text
         let arr =  str?.components(separatedBy: " ")
+        let arr2 =  str?.components(separatedBy: " ")
         if arr?.count ?? 0 >= 2 {
+            provincesValue = arr![0]
+            print(provincesValue)
+        }
+        if arr2?.count ?? 0 >= 2 {
             cityValue = arr![1]
             print(cityValue)
         }
