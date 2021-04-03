@@ -128,17 +128,28 @@ extension UIViewController {
                 print("JSON: \(json)")
                 
                 var weather = json["weather"][0]["description"].stringValue
+                let weather1 = json["weather"][1]["description"].stringValue
+                
+                let weatherContainRain = weather.contains("rain")
+                let weather1ContainRain = weather1.contains("rain")
+                
+                print("\(weather) | \(weatherContainRain)")
+                print("\(weather1) | \(weather1ContainRain)")
                 
                 if weather == "clear sky" {
                     weather = "맑음"
-                } else if weather == "shower rain" || weather == "rain" || weather == "thunderstorm" {
+                } else if weatherContainRain == true || weather == "thunderstorm" {
                     weather = "비"
                 } else if weather == "snow" {
                     weather = "눈"
-                } else if weather == "mist" {
+                } else if weather == "mist" || weather == "Haze"{
                     weather = "안개"
                 } else {
                     weather = "구름"
+                }
+                
+                if weather1ContainRain == true || weather1 == "thunderstorm" {
+                    weather = "비"
                 }
                 
                 let currentTemp = json["main"]["temp"].doubleValue - 273.15
