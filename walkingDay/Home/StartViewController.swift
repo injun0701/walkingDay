@@ -31,9 +31,6 @@ class StartViewController: UIViewController, CLLocationManagerDelegate {
     var province = "위치"
     var city = ""
     
-    //api 소스
-    let apiKey = "tHdaFkeZaI9Bkc1GCSnDqZ76KjZQGbNNh4kX38IzDT2GmbD3McHV%2BzZV5%2F5ygds3p%2BVZ3rOtvxHCJcoCAzlmTg%3D%3D"
-    
     //MARK: viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -80,65 +77,6 @@ class StartViewController: UIViewController, CLLocationManagerDelegate {
         navigationController?.pushViewController(navi, animated: false)
     }
     
-    //MARK: 미세먼지 api 그룹
-    func airAipGroup(action: @escaping () -> Void) {
-        measuringStationApi(apiKey: apiKey, province: province, city: city) { (resultTmX, resultTmY) in
-            let resultTmX = resultTmX
-            let resultTmY = resultTmY
-            self.searchMeasuringStationApi(apiKey: self.apiKey, resultTmX: resultTmX, resultTmY: resultTmY) { (result) in
-                let result = result
-                self.airApi(apiKey: self.apiKey, measuringStation: result) { [self] pm10Grade,pm10Value,pm25Grade,pm25Value,no2Grade,no2Value,o3Grade,o3Value,coGrade,coValue,so2Grade,so2Value  in
-                    
-                    ad?.pm10Grade = pm10Grade
-                    ad?.pm10Value = pm10Value
-                    ad?.pm25Grade = pm25Grade
-                    ad?.pm25Value = pm25Value
-                    ad?.no2Grade = no2Grade
-                    ad?.no2Value = no2Value
-                    ad?.o3Grade = o3Grade
-                    ad?.o3Value = o3Value
-                    ad?.coGrade = coGrade
-                    ad?.coValue = coValue
-                    ad?.so2Grade = so2Grade
-                    ad?.so2Value = so2Value
-                    action()
-                }
-            } after2: {
-                self.showAlertBtn1(title: "서버 통신 오류", message: "날씨 및 미세먼지 데이터를 불러올 수 없습니다.", btnTitle: "확인") {}
-            }
-        } after2: {
-            self.showAlertBtn1(title: "서버 통신 오류", message: "날씨 및 미세먼지 데이터를 불러올 수 없습니다.", btnTitle: "확인") {
-                self.toHomeViewCon()
-            }
-        }
-    }
-    
-    //MARK: weather api 그룹
-    func weatherAipGroup(action: @escaping () -> Void) {
-        weatherLoationApi(apiKey: apiKey, province: province, city: city) { (resultDmX, resultDmY) in
-            let resultDmX = resultDmX
-            let resultDmY = resultDmY
-       
-            self.weatherApi(resultDmX: resultDmX, resultDmY: resultDmY) { [self] weather,currentTemp,feelsLikeTemp,humidityText,windText  in
-                    
-                ad?.weather = weather
-                ad?.currentTemp = String(currentTemp)
-                ad?.feelsLikeTemp = feelsLikeTemp
-                ad?.humidityText = humidityText
-                ad?.windText = windText
-                action()
-            } after2: {
-                self.showAlertBtn1(title: "서버 통신 오류", message: "날씨 데이터를 불러올 수 없습니다.", btnTitle: "확인") {
-                    self.toHomeViewCon()
-                }
-            }
-        } after2: {
-            self.showAlertBtn1(title: "서버 통신 오류", message: "날씨 데이터를 불러올 수 없습니다.", btnTitle: "확인") {
-                self.toHomeViewCon()
-            }
-        }
-    }
-    
     //MARK: viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
         //위치 디비 isChecked 체크
@@ -147,21 +85,26 @@ class StartViewController: UIViewController, CLLocationManagerDelegate {
             checkCoorLatitudeAndCoorLongitude(latitude: latitude, longitude: longitude, coorLatitude: coorLatitude, coorLongitude: coorLongitude) { (province, city) in
                 self.province = province
                 self.city = city
-                self.airAipGroup {
-                    self.weatherAipGroup{
-                        self.toHomeViewCon()
-                    }
-                }
+                //Api 모음
+                self.ApiGroup()
             }
-        } action2: {
+        } fail: {
             let LocationDbManagerIsChecked = LocationDbManager.shared.locationList()?.filter("isChecked == true")
             province = LocationDbManagerIsChecked?.first?.provinces ?? "서울특별시"
             city = LocationDbManagerIsChecked?.first?.city ?? "중구"
-            self.airAipGroup {
-                self.weatherAipGroup{
-                    self.toHomeViewCon()
-                }
+            //Api 모음
+            ApiGroup()
+        }
+    }
+    
+    //Api 모음
+    func ApiGroup() {
+        self.airApiGroup(province: province, city: city) {
+            self.weatherApiGroup(province: self.province, city: self.city) {
+                self.toHomeViewCon()
             }
+        } fail: {
+            self.toHomeViewCon()
         }
     }
     

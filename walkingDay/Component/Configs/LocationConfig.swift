@@ -90,7 +90,7 @@ extension CLLocationManagerDelegate {
             locationManager.delegate = self
             //배터리에 맞게 권장되는 최적의 정확도
             //locationManager.desiredAccuracy = kCLLocationAccuracyBest
-            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters //오차 범위 10미터 이내
             //위치 업데이트
             locationManager.startUpdatingLocation()
         }

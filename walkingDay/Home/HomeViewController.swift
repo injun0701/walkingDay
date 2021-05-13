@@ -40,7 +40,13 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate {
         //위치 권한 허용 체크
         locationCheck {}
         //로케이션 세팅 + 미세먼지 api
-        loctionFuncGroupPlusAirAip()
+        loctionFuncGroup() {
+            self.airApiCroupFun() {
+                //날씨 배경 이미지 세팅
+                self.backgroundImgSet()
+                LoadingHUD.hide()
+            }
+        }
         if HKHealthStore.isHealthDataAvailable() {
             //healthStore에서 걸음수 가져오기
             getTodaySteps(healthStore: self.healthStore) { (result) in
@@ -92,6 +98,7 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate {
         navigationController?.pushViewController(navi, animated: true)
     }
     
+    //앱델리게이트
     let ad = UIApplication.shared.delegate as? AppDelegate
     
     //헬스킷 스토어
@@ -127,9 +134,6 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate {
     //날씨 온도 초기값
     var currentTempC = ""
     var currentTempF = ""
-    
-    //api 소스
-    let apiKey = "tHdaFkeZaI9Bkc1GCSnDqZ76KjZQGbNNh4kX38IzDT2GmbD3McHV%2BzZV5%2F5ygds3p%2BVZ3rOtvxHCJcoCAzlmTg%3D%3D"
     
     //MARK: viewDidLoad
     override func viewDidLoad() {
@@ -183,67 +187,6 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate {
             let sb = UIStoryboard(name: "Air", bundle: nil)
             guard let navi = sb.instantiateViewController(withIdentifier: "AirDetailViewController") as? AirDetailViewController else { return }
             self.navigationController?.pushViewController(navi, animated: true)
-        }
-    }
-    
-    //MARK: 미세먼지 api 그룹
-    func airAipGroup(action: @escaping () -> Void) {
-        measuringStationApi(apiKey: apiKey, province: province, city: city) { (resultTmX, resultTmY) in
-            let resultTmX = resultTmX
-            let resultTmY = resultTmY
-            self.searchMeasuringStationApi(apiKey: self.apiKey, resultTmX: resultTmX, resultTmY: resultTmY) { (result) in
-                let result = result
-                self.airApi(apiKey: self.apiKey, measuringStation: result) { [self] pm10Grade,pm10Value,pm25Grade,pm25Value,no2Grade,no2Value,o3Grade,o3Value,coGrade,coValue,so2Grade,so2Value  in
-                    airValueLbl.text = pm10Grade
-                
-                    ad?.pm10Grade = pm10Grade
-                    ad?.pm10Value = pm10Value
-                    ad?.pm25Grade = pm25Grade
-                    ad?.pm25Value = pm25Value
-                    ad?.no2Grade = no2Grade
-                    ad?.no2Value = no2Value
-                    ad?.o3Grade = o3Grade
-                    ad?.o3Value = o3Value
-                    ad?.coGrade = coGrade
-                    ad?.coValue = coValue
-                    ad?.so2Grade = so2Grade
-                    ad?.so2Value = so2Value
-                    action()
-                }
-            } after2: {
-                self.showAlertBtn1(title: "서버 통신 오류", message: "날씨 및 미세먼지 데이터를 불러올 수 없습니다.", btnTitle: "확인") {}
-            }
-        } after2: {
-            self.showAlertBtn1(title: "서버 통신 오류", message: "날씨 및 미세먼지 데이터를 불러올 수 없습니다.", btnTitle: "확인") {}
-        }
-    }
-    
-    //MARK: weather api 그룹
-    func weatherAipGroup(action: @escaping () -> Void) {
-        weatherLoationApi(apiKey: apiKey, province: province, city: city) { (resultDmX, resultDmY) in
-            let resultDmX = resultDmX
-            let resultDmY = resultDmY
-       
-            self.weatherApi(resultDmX: resultDmX, resultDmY: resultDmY) { [self] weather,currentTemp,feelsLikeTemp,humidityText,windText  in
-                    
-                weatherLbl.text = weather
-                if ad!.currentTemp != "" {
-                    let currentTempToDouble = Double(ad!.currentTemp) ?? 0.0
-                    currentTempC = String(format: "%.0f", currentTempToDouble+0)
-                    currentTempF = String(format: "%.0f", (currentTempToDouble+273.15))
-                }
-                weatherTemperLbl.text = "\(currentTempC)℃/\(currentTempF)°F"
-                ad?.weather = weather
-                ad?.currentTemp = String(currentTemp)
-                ad?.feelsLikeTemp = feelsLikeTemp
-                ad?.humidityText = humidityText
-                ad?.windText = windText
-                action()
-            } after2: {
-                self.showAlertBtn1(title: "서버 통신 오류", message: "날씨 데이터를 불러올 수 없습니다.", btnTitle: "확인") {}
-            }
-        } after2: {
-            self.showAlertBtn1(title: "서버 통신 오류", message: "날씨 데이터를 불러올 수 없습니다.", btnTitle: "확인") {}
         }
     }
     
@@ -361,18 +304,29 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate {
         //위치 리스트 체크값이 변경되는지 체크
         let checkCityChange = true
         if checkCityChange == ad?.checkCityChange {
-            loctionFuncGroupPlusAirAip()
+            //로케이션 세팅 + 미세먼지 api
+            loctionFuncGroup() {
+                self.airApiCroupFun() {
+                    //날씨 배경 이미지 세팅
+                    self.backgroundImgSet()
+                    LoadingHUD.hide()
+                }
+            }
             print("미세먼지 작동!")
             ad?.checkCityChange = false
         } else {
-            loctionFuncGroup()
+            //로케이션 세팅
+            loctionFuncGroup() {
+                //날씨 배경 이미지 세팅
+                self.backgroundImgSet()
+                LoadingHUD.hide()
+            }
             print("미세먼지 작동 안함!!")
         }
     }
     
     //로케이션 세팅
-    func loctionFuncGroup() {
-        
+    func loctionFuncGroup(after: @escaping () -> ()) {
         //위치 디비 isChecked 체크
         LocationDbManagerIsChecked { //id가 0이면(현재위치이면)
             //위치 권한 체크 및 요청
@@ -382,19 +336,15 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate {
                 UserDefaults.standard.set(self.locationLbl.text!, forKey: "cityTitle")
                 self.province = province
                 self.city = city
-                //날씨 배경 이미지 세팅
-                self.backgroundImgSet()
-                LoadingHUD.hide()
+                after()
                 
             }
-        } action2: { //현재위치가 아니면
+        } fail: {//현재위치가 아니면
             let locationDbManagerIsChecked = LocationDbManager.shared.locationList()?.filter("isChecked == true")
             province = locationDbManagerIsChecked?.first?.provinces ?? "서울특별시"
             city = locationDbManagerIsChecked?.first?.city ?? "중구"
             textLblSet()
-            //날씨 배경 이미지 세팅
-            backgroundImgSet()
-            LoadingHUD.hide()
+            after()
         }
     }
     
@@ -411,37 +361,26 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate {
         UserDefaults.standard.set(locationLbl.text!, forKey: "cityTitle")
     }
     
-    //로케이션 세팅 + api
-    func loctionFuncGroupPlusAirAip() {
-        LocationDbManagerIsChecked { //id가 0이면(현재위치이면)
-            //위치 권한 체크 및 요청
-            checkCoorLatitudeAndCoorLongitude(latitude: latitude, longitude: longitude, coorLatitude: coorLatitude, coorLongitude: coorLongitude) { (province, city) in
-                self.locationLbl.text = province + " " + city
-                UserDefaults.standard.set(self.locationLbl.text!, forKey: "cityTitle")
-                self.province = province
-                self.city = city
-                self.airAipGroup {
-                    self.weatherAipGroup{
-                        //날씨 배경 이미지 세팅
-                        self.backgroundImgSet()
-                        LoadingHUD.hide()
-                    }
-                }
+    //대기정보 api 모음
+    func airApiCroupFun(after: @escaping () -> ()) {
+        airApiGroup(province: province, city: city) { [self] in
+            weatherApiGroup(province: province, city: city) { [self] in
+                //날씨라벨, 온도라벨 세팅
+                weatherlblAndWeatherTemperLblSetting()
+                after()
             }
-        } action2: { //현재위치가 아니면
-            let LocationDbManagerIsChecked = LocationDbManager.shared.locationList()?.filter("isChecked == true")
-            province = LocationDbManagerIsChecked?.first?.provinces ?? "서울특별시"
-            city = LocationDbManagerIsChecked?.first?.city ?? "중구"
-            self.locationLbl.text = province + " " + city
-            UserDefaults.standard.set(locationLbl.text!, forKey: "cityTitle")
-            airAipGroup {
-                self.weatherAipGroup{
-                    //날씨 배경 이미지 세팅
-                    self.backgroundImgSet()
-                    LoadingHUD.hide()
-                }
-            }
+        } fail: {}
+    }
+    
+    //날씨라벨, 온도라벨 세팅
+    func weatherlblAndWeatherTemperLblSetting() {
+        if ad!.currentTemp != "" {
+            let currentTempToDouble = Double(ad!.currentTemp) ?? 0.0
+            currentTempC = String(format: "%.0f", currentTempToDouble+0)
+            currentTempF = String(format: "%.0f", (currentTempToDouble+273.15))
         }
+        weatherLbl.text = ad?.weather
+        weatherTemperLbl.text = "\(currentTempC)℃/\(currentTempF)°F"
     }
     
     //MARK: viewDidAppear
@@ -539,6 +478,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
     }
 }
 
+//걸음수 모델
 struct WalkModel {
     var text: String
     var date: String

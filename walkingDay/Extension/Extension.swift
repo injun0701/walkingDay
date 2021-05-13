@@ -49,6 +49,7 @@ extension UIViewController {
             present(alert, animated: true, completion: nil)
         }
     }
+    
     //위치 권한 체크
     @objc func locationCheck(after: @escaping () -> ()) {
         let status = CLLocationManager.authorizationStatus()
@@ -75,12 +76,12 @@ extension UIViewController {
     }
     
     //위치 디비 isChecked 체크
-    func LocationDbManagerIsChecked(checkCoorLatitudeAndCoorLongitude: () -> Void, action2: () -> Void) {
+    func LocationDbManagerIsChecked(checkCoorLatitudeAndCoorLongitude: () -> Void, fail: () -> Void) {
         if LocationDbManager.shared.locationList()?.filter("id == 0").first?.isChecked == true {
             //위치 권한 체크 및 요청
             checkCoorLatitudeAndCoorLongitude()
         } else {
-           action2()
+            fail()
         }
     }
     
@@ -121,6 +122,8 @@ extension UIViewController {
         navi.backingImage = self.view.asImage() //현재 화면 캡쳐 이미지
         navigationController?.pushViewController(navi, animated: false)
     }
+    
+    
 }
 
 //MARK: 유아이_컬러 extension
