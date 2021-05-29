@@ -41,8 +41,8 @@ extension UIViewController {
                 case ProvinceAndCityToDmXDmYStatusCode.success.rawValue:
                     print("도, 시로 Dm 좌표 찾기 성공")
                     
-                    let resultDmX = json["list"][0]["dmX"].stringValue
-                    let resultDmY = json["list"][0]["dmY"].stringValue
+                    let resultDmX = json["response"]["body"]["items"][0]["dmX"].stringValue
+                    let resultDmY = json["response"]["body"]["items"][0]["dmY"].stringValue
                     
                     after(resultDmX, resultDmY)
                     
@@ -66,9 +66,11 @@ extension UIViewController {
      
         let resultDmX = resultDmX
         let resultDmY = resultDmY
+        print("resultDmX: \(resultDmX), resultDmY\(resultDmY)")
+        
         let url = weatherApiUrl(resultDmX: resultDmX, resultDmY: resultDmY)
         
-        //미세먼지 api
+        //날씨 api
         AF.request(url, method: .get).validate(statusCode: 200...500).responseJSON { response in
             switch response.result {
             case .success(let value):

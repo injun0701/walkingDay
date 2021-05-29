@@ -11,34 +11,34 @@ import UIKit
 extension UIViewController {
     //api key
     func airApiKey() -> String {
-        let apiKey = "tHdaFkeZaI9Bkc1GCSnDqZ76KjZQGbNNh4kX38IzDT2GmbD3McHV%2BzZV5%2F5ygds3p%2BVZ3rOtvxHCJcoCAzlmTg%3D%3D"
+        let apiKey = "7DmByV4sR%2FTZIem%2F9l3%2F%2FlmTuh%2BmyajPkL0mWoxGEY9j7dpgWPYLojKSwyZK8IUeUftqDfzTvGAaU2DZzgF0sQ%3D%3D"
         return apiKey
     }
     
     //미세먼지 측정소 Tm 좌표 찾기 api url
     func provinceAndCityToTmXTmYApiUrl(provinceAndCityEncoding: String) -> String {
-        let url = "http://openapi.airkorea.or.kr/openapi/services/rest/MsrstnInfoInqireSvc/getTMStdrCrdnt?serviceKey=\(airApiKey())&numOfRows=10&pageNo=1&umdName=\(provinceAndCityEncoding)&_returnType=json"
+        let url = "http://apis.data.go.kr/B552584/MsrstnInfoInqireSvc/getTMStdrCrdnt?serviceKey=\(airApiKey())&returnType=json&numOfRows=1&pageNo=1&umdName=\(provinceAndCityEncoding)"
         
         return url
     }
     
     //미세먼지 측정소찾기 api url
     func tmXTmYToAirMeasuringStationApiUrl(resultTmX: String, resultTmY: String) -> String {
-        let url = "http://openapi.airkorea.or.kr/openapi/services/rest/MsrstnInfoInqireSvc/getNearbyMsrstnList?tmX=\(resultTmX)&tmY=\(resultTmY)&pageNo=1&numOfRows=10&ServiceKey=\(airApiKey())&_returnType=json"
+        let url = "http://apis.data.go.kr/B552584/MsrstnInfoInqireSvc/getNearbyMsrstnList?serviceKey=\(airApiKey())&returnType=json&tmX=\(resultTmX)&tmY=\(resultTmY)&ver=1.0"
         
         return url
     }
     
     //미세먼지 측정소찾기 api url
     func airApiUrl(airMeasuringStationEncoding: String) -> String {
-        let url = "http://openapi.airkorea.or.kr/openapi/services/rest/ArpltnInforInqireSvc/getMsrstnAcctoRltmMesureDnsty?stationName=\(airMeasuringStationEncoding)&dataTerm=daily&pageNo=1&numOfRows=1&ServiceKey=\(airApiKey())&_returnType=json&ver=1.3"
+        let url =    "http://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getMsrstnAcctoRltmMesureDnsty?serviceKey=\(airApiKey())&returnType=json&numOfRows=1&pageNo=1&stationName=\(airMeasuringStationEncoding)&dataTerm=DAILY&ver=1.3"
         
         return url
     }
     
     //날씨 Dm 좌표 찾기 api url
     func provinceAndCityToDmXDmYApiUrl(provinceAndCityEncoding: String) -> String {
-        let url = "http://openapi.airkorea.or.kr/openapi/services/rest/MsrstnInfoInqireSvc/getMsrstnList?&addr=\(provinceAndCityEncoding)&pageNo=1&numOfRows=10&ServiceKey=\(airApiKey())&_returnType=json"
+        let url = "http://apis.data.go.kr/B552584/MsrstnInfoInqireSvc/getMsrstnList?serviceKey=\(airApiKey())&returnType=json&numOfRows=1&pageNo=1&addr=\(provinceAndCityEncoding)"
         
         return url
     }

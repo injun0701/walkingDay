@@ -76,7 +76,7 @@ extension IntroViewController: UICollectionViewDataSource, UICollectionViewDeleg
             }
             cell.titleLbl.text = intro[indexPath.row].title
             cell.contentLbl.text = intro[indexPath.row].content
-            cell.ImgView.image = UIImage(named: "\(intro[indexPath.row].img)")
+            cell.imgView.image = UIImage(named: "\(intro[indexPath.row].img)")
             if indexPath.row == 0 {
                 cell.btn01.isHidden = true
                 //btn02TapHandler 작성

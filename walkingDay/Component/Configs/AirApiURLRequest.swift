@@ -48,8 +48,8 @@ extension UIViewController {
                 case ProvinceAndCityToTmXTmYStatusCode.success.rawValue:
                     print("도, 시로 Tm 좌표 찾기 성공")
                     
-                    let resultTmX = json["list"][0]["tmX"].stringValue
-                    let resultTmY = json["list"][0]["tmY"].stringValue
+                    let resultTmX = json["response"]["body"]["items"][0]["tmX"].stringValue
+                    let resultTmY = json["response"]["body"]["items"][0]["tmY"].stringValue
                     after(resultTmX, resultTmY)
                     
                 case ProvinceAndCityToTmXTmYStatusCode.fail.rawValue:
@@ -72,6 +72,7 @@ extension UIViewController {
      
         let resultTmX = resultTmX
         let resultTmY = resultTmY
+        print("resultTmX: \(resultTmX), resultTmY\(resultTmY)")
         
         let url = tmXTmYToAirMeasuringStationApiUrl(resultTmX: resultTmX, resultTmY: resultTmY)
         
@@ -80,7 +81,7 @@ extension UIViewController {
             switch response.result {
             case .success(let value):
                 let json = JSON(value)
-//                print("JSON: \(json)")
+                print("JSON: \(json)")
                 
                 //응답받은
                 let statusCode = response.response?.statusCode ?? 404
@@ -90,7 +91,7 @@ extension UIViewController {
                 case TmXTmYToAirMeasuringStationStatusCode.success.rawValue:
                     print("Tm 좌표로 미세먼지 측정소 찾기 성공")
                     
-                    let stationName = json["list"][0]["stationName"].stringValue
+                    let stationName = json["response"]["body"]["items"][0]["stationName"].stringValue
                     after(stationName)
                     
                 case TmXTmYToAirMeasuringStationStatusCode.fail.rawValue:
@@ -132,30 +133,32 @@ extension UIViewController {
                 case AirApiStatusCode.success.rawValue:
                     print("미세먼지 정보 받기 성공")
                     
+                    let jsonItems = json["response"]["body"]["items"][0]
+                    
                     //pm10(미세먼지) 결과 1:좋음 2:보통 3:나쁨 4:매우나쁨
-                    var pm10Grade = json["list"][0]["pm10Grade"].stringValue
+                    var pm10Grade = jsonItems["pm10Grade"].stringValue
                     //pm10(미세먼지) 값
-                    var pm10Value = json["list"][0]["pm10Value"].stringValue
+                    var pm10Value = jsonItems["pm10Value"].stringValue
                     //pm25(초미세먼지) 결과 1:좋음 2:보통 3:나쁨 4:매우나쁨
-                    var pm25Grade = json["list"][0]["pm25Grade"].stringValue
+                    var pm25Grade = jsonItems["pm25Grade"].stringValue
                     //pm25(초미세먼지) 값
-                    var pm25Value = json["list"][0]["pm25Value"].stringValue
+                    var pm25Value = jsonItems["pm25Value"].stringValue
                     //no2(이산화질소) 결과 1:좋음 2:보통 3:나쁨 4:매우나쁨
-                    var no2Grade = json["list"][0]["no2Grade"].stringValue
+                    var no2Grade = jsonItems["no2Grade"].stringValue
                     //no2(이산화질소) 값
-                    var no2Value = json["list"][0]["no2Value"].stringValue
+                    var no2Value = jsonItems["no2Value"].stringValue
                     //o3(오존) 결과 1:좋음 2:보통 3:나쁨 4:매우나쁨
-                    var o3Grade = json["list"][0]["o3Grade"].stringValue
+                    var o3Grade = jsonItems["o3Grade"].stringValue
                     //o3(오존) 값
-                    var o3Value = json["list"][0]["o3Value"].stringValue
+                    var o3Value = jsonItems["o3Value"].stringValue
                     //co(일산화탄소) 결과 1:좋음 2:보통 3:나쁨 4:매우나쁨
-                    var coGrade = json["list"][0]["coGrade"].stringValue
+                    var coGrade = jsonItems["coGrade"].stringValue
                     //co(일산화탄소) 값
-                    var coValue = json["list"][0]["coValue"].stringValue
+                    var coValue = jsonItems["coValue"].stringValue
                     //so2(이산황) 결과 1:좋음 2:보통 3:나쁨 4:매우나쁨
-                    var so2Grade = json["list"][0]["so2Grade"].stringValue
+                    var so2Grade = jsonItems["so2Grade"].stringValue
                     //so2(이산황) 값
-                    var so2Value = json["list"][0]["so2Value"].stringValue
+                    var so2Value = jsonItems["so2Value"].stringValue
                     
                     pm10Grade = self.airGradeCal(pm10Grade)
                     pm25Grade = self.airGradeCal(pm25Grade)

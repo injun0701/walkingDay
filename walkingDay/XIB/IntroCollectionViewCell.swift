@@ -11,7 +11,7 @@ class IntroCollectionViewCell: UICollectionViewCell {
 
     @IBOutlet var titleLbl: UILabel!
     @IBOutlet var contentLbl: UILabel!
-    @IBOutlet var ImgView: UIImageView!
+    @IBOutlet var imgView: UIImageView!
     @IBOutlet var btn01: UIButton!
     @IBOutlet var btn02: UIButton!
     
