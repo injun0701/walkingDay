@@ -148,7 +148,7 @@ extension UIViewController {
             }
         }
         if province == "경기도" {
-            if city != "가평군" && city != "양평군" {
+            if city != "가평군" {
                 province = "경기"
             }
         }
@@ -156,62 +156,40 @@ extension UIViewController {
             province = "인천"
         }
         if province == "강원도" {
-            if city == "춘천시" || city == "원주시" || city == "강릉시" || city == "동해시" || city == "삼척시" || city == "평창군" || city == "정선군" {
+            if city == "강릉시" || city == "삼척시" || city == "평창군" {
                 province = "강원"
             }
         }
         if province == "충청북도" {
-            if city == "옥천군" || city == "증평군" {
-                province = "충북"
-            }
+            province = "충북"
         }
         if province == "충청남도" {
-            if city == "당진시" || city == "금산군" || city == "부여군" || city == "예산군" || city == "태안군" {
-                province = "충남"
-            }
+            province = "충남"
         }
         if province == "대전광역시" {
             province = "대전"
         }
         if province == "경상북도" {
-            if city != "영양군" && city != "청송군" && city != "예천군" && city != "봉화군" && city != "성주군" {
-                province = "경북"
-            }
+            province = "경북"
         }
         if province == "경상남도" {
-            if city == "거창군" || city == "합천군" || city == "김해시" || city == "의령군" || city == "함안군" || city == "창녕군" || city == "하동군" || city == "산청군" {
-                province = "경남"
-            }
+            province = "경남"
         }
-        if province == "대구광역시" {
-            if city != "달성군" {
-                province = "대구"
-            }
+        if province == "전라북도" {
+            province = "전북"
         }
-        if province == "울산광역시" {
-            province = "울산"
+        if province == "전라남도" {
+            province = "전남"
         }
         if province == "부산광역시" {
             if city != "부산진구" {
                 province = "부산"
             }
         }
-        if province == "광주광역시" {
-            province = "광주"
-        }
-        if province == "전라북도" {
-            if city == "남원시" || city == "김제시" || city == "진안군" {
-                province = "전북"
-            }
-        }
-        if province == "전라남도" {
-            if city != "담양군" && city != "고흥군" && city != "장흥군" && city != "강진군" && city != "해남군" && city != "무안군" && city != "함평군" && city != "완도군" && city != "진도군" {
-                province = "전남"
-            }
-        }
         if province == "제주도" {
             province = "제주"
         }
+        print("province\(province), city\(city)")
         
         return (province, city)
     }
